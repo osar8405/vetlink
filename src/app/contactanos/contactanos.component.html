@@ -1,0 +1,62 @@
+<section class="px-6 py-12 max-w-3xl mx-auto bg-base-100 rounded-lg shadow-lg mt-10 mb-10">
+  <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+  <p class="text-base-content mb-8">
+    Feel free to reach out to us with any questions or to schedule an appointment.
+  </p>
+
+  <!-- Contact Info -->
+  <div class="mb-10">
+    <h3 class="font-bold text-lg mb-2">Contact Information</h3>
+    <ul class="space-y-2">
+      <li class="flex items-center gap-2">
+        <span class="text-primary">📍</span> 123 Main St, Anytown, USA
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-primary">📞</span> (123) 456-7890
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-primary">✉️</span> 
+      </li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <h3 class="font-bold text-lg mb-4">Send us a message</h3>
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4" (ngSubmit)="sendMessage()">
+    <input
+      type="text"
+      class="input input-bordered w-full"
+      placeholder="Name"
+      name="name"
+      required
+    />
+    <input
+      type="email"
+      class="input input-bordered w-full"
+      placeholder="Email"
+      name="email"
+      required
+    />
+
+    <input
+      type="text"
+      class="input input-bordered w-full md:col-span-2"
+      placeholder="Subject"
+      name="subject"
+    />
+
+    <textarea
+      class="textarea textarea-bordered w-full md:col-span-2"
+      placeholder="Message"
+      name="message"
+      rows="4"
+    ></textarea>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-full md:col-span-2"
+    >
+      Send
+    </button>
+  </form>
+</section>

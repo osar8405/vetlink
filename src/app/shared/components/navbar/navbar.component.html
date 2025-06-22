@@ -1,0 +1,15 @@
+<nav class="navbar bg-base-100 shadow-md px-6">
+  <div class="flex-1">
+    <a class="text-xl font-bold text-primary">🐾 Vetlink</a>
+  </div>
+  <div class="flex gap-4">
+    <a class="btn btn-ghost rounded-btn" [routerLink]="['/home']" routerLinkActive="router-link-active">Inicio</a>
+    <a class="btn btn-ghost rounded-btn" [routerLink]="['/acerca-de-nosotros']" routerLinkActive="router-link-active">Acerca de nosotros</a>
+    <a class="btn btn-ghost rounded-btn" [routerLink]="['/servicios']" routerLinkActive="router-link-active">Servicios</a>
+    <a class="btn btn-ghost rounded-btn" [routerLink]="['/contactanos']" routerLinkActive="router-link-active" >Contacto</a>
+  </div>
+  <div class="flex gap-2 ml-4">
+    <button class="btn btn-outline btn-sm">Iniciar sesión</button>
+    <button class="btn btn-primary btn-sm">Get Started</button>
+  </div>
+</nav>
