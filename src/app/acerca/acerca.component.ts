@@ -5,4 +5,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './acerca.component.html',
 })
-export class AcercaComponent { }
+export class AcercaComponent {
+}
