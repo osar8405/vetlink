@@ -1,47 +1,61 @@
-<div class="hero min-h-[80vh] bg-gradient-to-r from-base-100 to-base-200 px-6">
-  <div class="hero-content flex-col lg:flex-row-reverse gap-10">
-    <img src="/assets/images/perro/vet1.jpg" class="max-w-sm rounded-lg shadow-2xl" alt="Vet with dog" />
-    <div>
-      <h1 class="text-5xl font-bold">Quality Care for Your Pets</h1>
-      <p class="py-6 text-lg">
-        We provide compassionate and professional care for your friends.
-      </p>
-      <button class="btn btn-accent">Make an Appointment</button>
-    </div>
+<!-- Hero principal -->
+<section class="grid lg:grid-cols-2 items-center px-6 py-12 bg-primary-content">
+  <div>
+    <h1 class="text-5xl font-bold mb-4 text-primary">Cuidado de calidad para tus mascotas</h1>
+    <p class="text-lg mb-6 text-base-content">
+      Brindamos atención compasiva y profesional para tus mejores amigos peludos.
+    </p>
+    <button class="btn btn-primary">Agendar cita</button>
   </div>
-</div>
+  <div class="hidden lg:block">
+    <img src="/assets/images/perro/vet1.jpg" alt="Veterinaria con perro" class="rounded-xl shadow-xl">
+  </div>
+</section>
 
-<!-- Services -->
-<section class="py-12 bg-base-100 px-6">
-  <h2 class="text-3xl font-bold text-center mb-6">Our Services</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="card bg-base-200 p-4 text-center">
-      <h3 class="font-bold text-lg">Wellness Exams</h3>
-      <p>Regular check-ups to ensure your pet is healthy.</p>
+<!-- Servicios -->
+<section class="px-6 py-16 bg-base-100">
+  <h2 class="text-3xl font-bold text-center mb-4">Nuestros Servicios</h2>
+  <p class="text-center mb-10 text-base-content">
+    Cuidado integral para la salud y el bienestar de tus mascotas.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="card bg-base-200 p-6 rounded-lg shadow">
+      <img src="/assets/images/examenes-medicos.png" alt="Exámenes médicos" class="h-16 mb-4 mx-auto">
+      <h3 class="text-xl font-semibold mb-2 text-center">Exámenes médicos</h3>
+      <p class="text-center">Revisiones regulares para asegurar que tu mascota esté sana.</p>
     </div>
-    <div class="card bg-base-200 p-4 text-center">
-      <h3 class="font-bold text-lg">Vaccinations</h3>
-      <p>Protect your pet from common diseases.</p>
+
+    <div class="card bg-base-200 p-6 rounded-lg shadow">
+      <img src="/assets/images/vacunas.png" alt="Vacunas" class="h-16 mb-4 mx-auto">
+      <h3 class="text-xl font-semibold mb-2 text-center">Vacunación</h3>
+      <p class="text-center">Protege a tu mascota contra enfermedades comunes.</p>
     </div>
-    <div class="card bg-base-200 p-4 text-center">
-      <h3 class="font-bold text-lg">Dental Care</h3>
-      <p>Keep your pet's teeth clean and healthy.</p>
+
+    <div class="card bg-base-200 p-6 rounded-lg shadow">
+      <img src="/assets/images/cuidado-dental.png" alt="Cuidado dental" class="h-16 mb-4 mx-auto">
+      <h3 class="text-xl font-semibold mb-2 text-center">Cuidado dental</h3>
+      <p class="text-center">Mantén los dientes de tu mascota limpios y saludables.</p>
     </div>
-    <div class="card bg-base-200 p-4 text-center">
-      <h3 class="font-bold text-lg">Surgery</h3>
-      <p>Advanced surgical procedures for your pet.</p>
+
+    <div class="card bg-base-200 p-6 rounded-lg shadow">
+      <img src="/assets/images/cirugias.png" alt="Cirugía veterinaria" class="h-16 mb-4 mx-auto">
+      <h3 class="text-xl font-semibold mb-2 text-center">Cirugía</h3>
+      <p class="text-center">Procedimientos quirúrgicos avanzados para tu mascota.</p>
     </div>
   </div>
 </section>
 
-<!-- About -->
-<section class="py-12 px-6 bg-base-200 flex flex-col md:flex-row justify-between items-center gap-10">
-  <div class="max-w-lg">
-    <h2 class="text-3xl font-bold mb-4">About Our Clinic</h2>
-    <p class="mb-6">
-      Dedicated to providing high-quality veterinary care for your pets.
+<!-- Acerca de la clínica -->
+<section class="px-6 py-16 bg-primary-content grid md:grid-cols-2 items-center">
+  <div>
+    <h2 class="text-3xl font-bold mb-4">Acerca de Nuestra Clínica</h2>
+    <p class="mb-6 text-base-content">
+      Comprometidos con ofrecer atención veterinaria de alta calidad para tus mascotas.
     </p>
-    <button class="btn btn-accent">Contact Us</button>
+    <button class="btn btn-primary">Contáctanos</button>
   </div>
-  <img src="/assets/img/dog-outline.png" alt="Dog icon" class="w-40 h-40 opacity-70" />
+  <div class="hidden md:block text-center">
+    <img src="/assets/images/clinica-icono.png" alt="Icono clínica veterinaria" class="h-40 mx-auto opacity-80">
+  </div>
 </section>

@@ -1,6 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
-@plugin "daisyui";
  @plugin "daisyui" {
-   themes: light --default, silk --prefersdark;
+   themes: light --default, cupcake --prefersdark;
+ }
+ @layer base {
+   @font-face {
+     font-family: 'Montserrat';
+     src: url('/assets/fonts/montserrat-alternates/Montserrat-Medium.ttf') format('truetype');
+     font-weight: normal;
+     font-style: normal;
+   }
+
+   html {
+     font-family: 'Montserrat', sans-serif;
+   }
  }
