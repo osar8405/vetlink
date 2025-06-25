@@ -1,23 +1,26 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'contactanos',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './contactanos.component.html',
 })
 export class ContactanosComponent {
-  name = '';
-  email = '';
-  subject = '';
-  message = '';
+  private fb = inject(FormBuilder);
 
-  sendMessage() {
-    console.log({
-      name: this.name,
-      email: this.email,
-      subject: this.subject,
-      message: this.message
-    });
-    // Aquí puedes disparar el POST a una API o lo que ocupes
-  }
- }
+  contactoForm: FormGroup = this.fb.group({
+    nombre: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    telefono: [''],
+    comentario: ['', Validators.required],
+    terminos: [false, Validators.requiredTrue],
+  });
+
+  onSubmit() {}
+}

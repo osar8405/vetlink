@@ -1,62 +1,60 @@
-<section class="px-6 py-12 max-w-3xl mx-auto bg-base-100 rounded-lg shadow-lg mt-10 mb-10">
-  <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-  <p class="text-base-content mb-8">
-    Feel free to reach out to us with any questions or to schedule an appointment.
-  </p>
+<section class="max-w-4xl mx-auto px-4 py-10">
+  <h2 class="text-4xl font-bold text-primary mb-6">Queremos escucharte</h2>
 
-  <!-- Contact Info -->
-  <div class="mb-10">
-    <h3 class="font-bold text-lg mb-2">Contact Information</h3>
-    <ul class="space-y-2">
-      <li class="flex items-center gap-2">
-        <span class="text-primary">📍</span> 123 Main St, Anytown, USA
-      </li>
-      <li class="flex items-center gap-2">
-        <span class="text-primary">📞</span> (123) 456-7890
-      </li>
-      <li class="flex items-center gap-2">
-        <span class="text-primary">✉️</span>
-      </li>
-    </ul>
+  <div class="mb-6">
+    <h3 class="text-lg font-bold mb-2">¡Queremos conocer tu opinión!</h3>
+    <p class="text-base">
+      Nuestra misión es brindarte el mejor servicio a ti y a tus mascotas. Comparte tu opinión, comentarios, sugerencias
+      o quejas en el siguiente apartado, lo tomaremos en cuenta para mejorar día a día.
+    </p>
   </div>
 
-  <!-- Form -->
-  <h3 class="font-bold text-lg mb-4">Send us a message</h3>
-  <form class="grid grid-cols-1 md:grid-cols-2 gap-4" (ngSubmit)="sendMessage()">
-    <input
-      type="text"
-      class="input input-bordered w-full"
-      placeholder="Name"
-      name="name"
-      required
-    />
-    <input
-      type="email"
-      class="input input-bordered w-full"
-      placeholder="Email"
-      name="email"
-      required
-    />
+  <div class="mb-8">
+    <h3 class="text-lg font-bold mb-2">¿Tienes una emergencia?</h3>
+    <p class="text-base">
+      Recuerda que nuestro hospital está abierto 24/7 para atender cualquier inconveniente, llama a nuestro número de
+      emergencia: <strong>55 9025 2000</strong>.
+    </p>
+  </div>
 
-    <input
-      type="text"
-      class="input input-bordered w-full md:col-span-2"
-      placeholder="Subject"
-      name="subject"
-    />
+  <form [formGroup]="contactoForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Nombre -->
+    <div>
+      <label class="label font-medium">Nombre*</label>
+      <input type="text" class="input input-bordered w-full" formControlName="nombre" required />
+    </div>
 
-    <textarea
-      class="textarea textarea-bordered w-full md:col-span-2"
-      placeholder="Message"
-      name="message"
-      rows="4"
-    ></textarea>
+    <!-- Email y Teléfono -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="label font-medium">Email*</label>
+        <input type="email" class="input input-bordered w-full" formControlName="email" required />
+        <p class="text-xs mt-1">Nunca compartiremos su correo electrónico con nadie.</p>
+      </div>
+      <div>
+        <label class="label font-medium">Teléfono</label>
+        <input type="tel" class="input input-bordered w-full" formControlName="telefono" />
+      </div>
+    </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary w-full md:col-span-2"
-    >
-      Send
-    </button>
+    <!-- Comentario -->
+    <div>
+      <label class="label font-medium">Comentario*</label>
+      <textarea class="textarea textarea-bordered w-full min-h-[120px]" formControlName="comentario"
+        required></textarea>
+    </div>
+
+    <!-- Términos y botón -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" class="checkbox" formControlName="terminos" />
+        <span class="text-sm">Acepto los términos y condiciones</span>
+      </label>
+      <span class="text-sm text-right sm:text-left">*Todos los campos marcados son obligatorios</span>
+    </div>
+
+    <div class="mt-6">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
   </form>
 </section>

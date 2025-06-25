@@ -5,7 +5,7 @@
     <p class="text-lg mb-6 text-base-content">
       Brindamos atención compasiva y profesional para tus mejores amigos peludos.
     </p>
-    <button class="btn btn-primary">Agendar cita</button>
+    <button class="btn btn-primary" [routerLink]="['/agendar-cita']" routerLinkActive="router-link-active" >Agendar cita</button>
   </div>
   <div class="hidden lg:block">
     <img src="/assets/images/perro/vet1.jpg" alt="Veterinaria con perro" class="rounded-xl shadow-xl">
@@ -53,7 +53,7 @@
     <p class="mb-6 text-base-content">
       Comprometidos con ofrecer atención veterinaria de alta calidad para tus mascotas.
     </p>
-    <button class="btn btn-primary">Contáctanos</button>
+    <button [routerLink]="['/contactanos']" class="btn btn-primary">Contáctanos</button>
   </div>
   <div class="hidden md:block text-center">
     <img src="/assets/images/clinica-icono.png" alt="Icono clínica veterinaria" class="h-40 mx-auto opacity-80">

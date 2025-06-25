@@ -1,0 +1,106 @@
+<section class="max-w-4xl mx-auto px-4 py-10">
+  <h2 class="text-4xl font-bold text-primary mb-6">Agenda una cita</h2>
+
+  <div class="mb-6">
+    <h3 class="text-lg font-bold mb-2">¡Estamos listos para recibir a tu mascota!</h3>
+    <p class="text-base">
+      Si deseas reservar un espacio para solicitar alguno de nuestros servicios, por favor llena con tus datos el
+      siguiente formulario y uno de nuestros asesores se comunicará contigo por teléfono para confirmar la
+      disponibilidad.
+    </p>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-lg font-bold mb-2">¿Tienes una emergencia?</h3>
+    <p class="text-base">
+      Recuerda que nuestro hospital está abierto 24/7 para atender cualquier inconveniente.
+    </p>
+  </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Mascota -->
+    <div>
+      <label class="label font-medium">Nombre de la mascota*</label>
+      <input type="text" class="input input-bordered w-full" formControlName="mascota" required />
+    </div>
+
+    <!-- Propietario -->
+    <div>
+      <label class="label font-medium">Nombre del propietario responsable*</label>
+      <input type="text" class="input input-bordered w-full" formControlName="propietario" required />
+    </div>
+
+    <!-- Email y Teléfono -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="label font-medium">Email*</label>
+        <input type="email" class="input input-bordered w-full" formControlName="email" required />
+      </div>
+      <div>
+        <label class="label font-medium">Teléfono del propietario*</label>
+        <input type="tel" class="input input-bordered w-full" formControlName="telefono" required />
+      </div>
+    </div>
+
+    <!-- Servicio y Sucursal -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="label font-medium">Tipo de servicio*</label>
+        <select class="select select-bordered w-full" formControlName="servicio" required>
+          <option value="">Selecciona una opción</option>
+          <option value="consulta">Consulta</option>
+          <option value="vacuna">Vacuna</option>
+          <option value="baño">Baño</option>
+          <option value="estética">Estética</option>
+        </select>
+      </div>
+      <div>
+        <label class="label font-medium">Ubicación (Sucursal)*</label>
+        <select class="select select-bordered w-full" formControlName="sucursal" required>
+          <option value="">Selecciona una sucursal</option>
+          <option value="puebla">Puebla</option>
+          <option value="cdmx">CDMX</option>
+          <option value="queretaro">Querétaro</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Hora y Fecha -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="label font-medium">Hora*</label>
+        <select class="select select-bordered w-full" formControlName="hora" required>
+          <option value="">Selecciona un horario</option>
+          <option value="9-12">de 9am a 12pm</option>
+          <option value="12-15">de 12pm a 3pm</option>
+          <option value="15-18">de 3pm a 6pm</option>
+        </select>
+      </div>
+      <div>
+        <label class="label font-medium">Fecha*</label>
+        <input type="date" class="input input-bordered w-full" formControlName="fecha" required />
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div>
+      <label class="label font-medium">Comentarios adicionales*</label>
+      <textarea class="textarea textarea-bordered w-full min-h-[120px]" formControlName="comentarios"
+        required></textarea>
+    </div>
+
+    <!-- Terminos -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" class="checkbox" formControlName="terminos" />
+        <span class="text-sm">Acepto los términos y condiciones</span>
+      </label>
+      <span class="text-sm text-right sm:text-left">*Todos los campos marcados son obligatorios</span>
+    </div>
+
+    <!-- Botón -->
+    <div class="mt-6">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+</section>

@@ -17,4 +17,8 @@ export const routes: Routes = [
         path: 'servicios',
         loadComponent: () => import('./servicios/servicios.component').then(m => m.ServiciosComponent)
     },
+    {
+        path: 'agendar-cita',
+        loadComponent: () => import('./citas/components/agendar-cita/agendar-cita.component').then(m => m.AgendarCitaComponent)
+    },
 ];
