@@ -5,7 +5,8 @@
     <p class="text-lg mb-6 text-base-content">
       Brindamos atención compasiva y profesional para tus mejores amigos peludos.
     </p>
-    <button class="btn btn-primary" [routerLink]="['/agendar-cita']" routerLinkActive="router-link-active" >Agendar cita</button>
+    <button class="btn btn-primary" [routerLink]="['/agendar-cita']" routerLinkActive="router-link-active">Agendar
+      cita</button>
   </div>
   <div class="hidden lg:block">
     <img src="/assets/images/perro/vet1.jpg" alt="Veterinaria con perro" class="rounded-xl shadow-xl">
@@ -14,32 +15,33 @@
 
 <!-- Servicios -->
 <section class="px-6 py-16 bg-base-100">
-  <h2 class="text-3xl font-bold text-center mb-4">Nuestros Servicios</h2>
+  <h2 class="text-3xl font-bold text-center text-primary mb-4">Nuestros Servicios</h2>
   <p class="text-center mb-10 text-base-content">
     Cuidado integral para la salud y el bienestar de tus mascotas.
   </p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="card bg-base-200 p-6 rounded-lg shadow">
-      <img src="/assets/images/examenes-medicos.png" alt="Exámenes médicos" class="h-16 mb-4 mx-auto">
+    <div class="card p-6 rounded-lg shadow">
+      <!-- <img src="/assets/images/examenes-medicos.png" alt="Exámenes médicos" class="h-16 mb-4 mx-auto"> -->
+      <img src="/assets/images/servicios/examenMedico4.png" alt="clinica" class="rounded h-16 mb-4 mx-auto">
       <h3 class="text-xl font-semibold mb-2 text-center">Exámenes médicos</h3>
       <p class="text-center">Revisiones regulares para asegurar que tu mascota esté sana.</p>
     </div>
 
-    <div class="card bg-base-200 p-6 rounded-lg shadow">
-      <img src="/assets/images/vacunas.png" alt="Vacunas" class="h-16 mb-4 mx-auto">
+    <div class="card p-6 rounded-lg shadow">
+      <img src="/assets/images/servicios/vacunas2.png" alt="Cuidado dental" class="h-16 mb-4 mx-auto">
       <h3 class="text-xl font-semibold mb-2 text-center">Vacunación</h3>
       <p class="text-center">Protege a tu mascota contra enfermedades comunes.</p>
     </div>
 
-    <div class="card bg-base-200 p-6 rounded-lg shadow">
-      <img src="/assets/images/cuidado-dental.png" alt="Cuidado dental" class="h-16 mb-4 mx-auto">
+    <div class="card  p-6 rounded-lg shadow">
+      <img src="/assets/images/servicios/limpiezaDental2.png" alt="Cuidado dental" class="h-16 mb-4 mx-auto">
       <h3 class="text-xl font-semibold mb-2 text-center">Cuidado dental</h3>
       <p class="text-center">Mantén los dientes de tu mascota limpios y saludables.</p>
     </div>
 
-    <div class="card bg-base-200 p-6 rounded-lg shadow">
-      <img src="/assets/images/cirugias.png" alt="Cirugía veterinaria" class="h-16 mb-4 mx-auto">
+    <div class="card p-6 rounded-lg shadow">
+      <img src="/assets/images/servicios/cirugia.png" alt="Cuidado dental" class="h-16 mb-4 mx-auto">
       <h3 class="text-xl font-semibold mb-2 text-center">Cirugía</h3>
       <p class="text-center">Procedimientos quirúrgicos avanzados para tu mascota.</p>
     </div>
@@ -49,13 +51,13 @@
 <!-- Acerca de la clínica -->
 <section class="px-6 py-16 bg-primary-content grid md:grid-cols-2 items-center">
   <div>
-    <h2 class="text-3xl font-bold mb-4">Acerca de Nuestra Clínica</h2>
+    <h2 class="text-3xl font-bold mb-4 text-primary">Acerca de Nuestra Clínica</h2>
     <p class="mb-6 text-base-content">
       Comprometidos con ofrecer atención veterinaria de alta calidad para tus mascotas.
     </p>
     <button [routerLink]="['/contactanos']" class="btn btn-primary">Contáctanos</button>
   </div>
   <div class="hidden md:block text-center">
-    <img src="/assets/images/clinica-icono.png" alt="Icono clínica veterinaria" class="h-40 mx-auto opacity-80">
+    <img src="/assets/images/veterinaria/clinica.jpg" alt="clinica" class="rounded-xl shadow-xl">
   </div>
 </section>
