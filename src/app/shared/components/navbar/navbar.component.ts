@@ -9,7 +9,4 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class NavbarComponent {
   @Output() abrirLogin = new EventEmitter<void>();
 
-  onLoginClick() {
-    this.abrirLogin.emit();
-  }
 }
