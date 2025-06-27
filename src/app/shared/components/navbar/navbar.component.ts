@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -6,4 +6,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  @Output() abrirLogin = new EventEmitter<void>();
+
+  onLoginClick() {
+    this.abrirLogin.emit();
+  }
+}
