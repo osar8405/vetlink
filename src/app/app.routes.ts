@@ -36,4 +36,11 @@ export const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./cuenta/cuenta.routes')
   },
+  {
+    path: 'cliente',
+    loadComponent: () =>
+      import('./cliente/components/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+  },
 ];

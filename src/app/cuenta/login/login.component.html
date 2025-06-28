@@ -1,34 +1,28 @@
-<!-- <div class="min-h-screen flex flex-col justify-center items-center bg-base-200 px-4"> -->
-  <div
-    class="w-full max-w-6xl flex flex-col lg:flex-row items-center lg:items-stretch bg-white rounded shadow overflow-hidden">
+<div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row hero rounded overflow-hidden">
 
-    <!-- Columna izquierda (texto) -->
-    <!-- <div class="w-full lg:w-1/2 bg-base-200 flex items-center justify-center p-10">
-      <div>
-        <h1 class="text-5xl font-bold text-primary">Ingresar</h1>
-        <p class="mt-4 text-gray-700">
-          ¡Nos alegra tenerte de vuelta! Ingresa a tu cuenta.
-        </p>
-      </div>
-    </div> -->
+  <!-- Columna: Imagen -->
+  <div class="w-full lg:w-1/2 h-64 lg:h-auto hidden lg:block relative">
+    <!-- <img src="/assets/images/veterinaria/clinica.jpg" alt="Veterinaria" class="object-cover w-full h-full" /> -->
+     <h1 class="font-bold text-primary text-3xl">Iniciar sesión</h1>
+     <p class="py-6">¡Nos alegra tenerte de vuelta! Ingresa a tu cuenta</p>
+  </div>
 
-    <!-- Columna derecha (formulario) -->
-    <div class="w-full  bg-base-100 flex items-center justify-center p-10">
-      <div class="w-full max-w-md">
-        <fieldset class="fieldset">
-          <label class="label">Correo electrónico</label>
-          <input type="email" class="input input-bordered w-full" placeholder="Email" />
+  <!-- Columna: Formulario -->
+  <div class="w-full lg:w-1/2  flex items-center justify-center p-10">
+    <div class="w-full max-w-md">
+      <fieldset class="fieldset">
+        <label class="label">Correo electrónico</label>
+        <input type="email" class="input input-bordered w-full" placeholder="Email" />
 
-          <label class="label mt-4">Contraseña</label>
-          <input type="password" class="input input-bordered w-full" placeholder="Contraseña" />
+        <label class="label mt-4">Contraseña</label>
+        <input type="password" class="input input-bordered w-full" placeholder="Contraseña" />
 
-          <div class="mt-2">
-            <a class="link link-hover text-sm text-primary">¿Olvidaste tu contraseña?</a>
-          </div>
+        <div class="mt-2">
+          <a class="link link-hover text-sm text-primary">¿Olvidaste tu contraseña?</a>
+        </div>
 
-          <button class="btn btn-primary w-full mt-6">Aceptar</button>
-        </fieldset>
-      </div>
+        <button class="btn btn-primary w-full mt-6" [routerLink]="['/cliente']">Aceptar</button>
+      </fieldset>
     </div>
   </div>
-<!-- </div> -->
+</div>
