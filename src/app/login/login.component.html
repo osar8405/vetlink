@@ -1,16 +1,59 @@
-<div
-  class="hero min-h-screen"
-  style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);"
->
-  <div class="hero-overlay"></div>
-  <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
-      <p class="mb-5">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
-      </p>
-      <button class="btn btn-primary">Get Started</button>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="hero min-h-screen bg-gradient-to-br from-base-200 to-base-100">
+    <div class="hero-content flex-col lg:flex-row">
+
+      <!-- Ilustración veterinaria -->
+      <div class="hidden lg:block lg:w-1/4">
+        <img src="assets/images/login/perro.png" alt="Mascota" class="w-full h-auto" />
+      </div>
+
+      <!-- Lado formulario -->
+      <div class="card bg-base-100 w-full max-w-md shadow-xl border border-base-300">
+        <div class="card-body space-y-4">
+          <h1 class="text-4xl font-bold text-center text-primary">VetLink</h1>
+          <h2 class="text-3xl font-bold text-center text-primary">Iniciar Sesión</h2>
+
+          @if (credencialesInvalidas) {
+          <div role="alert" class="alert alert-error alert-soft">
+            <span>Usuario o contraseña incorrectos.</span>
+          </div>
+          }
+
+          <fieldset class="fieldset space-y-3">
+            <label class="label font-semibold">Correo electrónico</label>
+            <input type="email" class="input input-bordered w-full" placeholder="ejemplo@correo.com"
+              formControlName="email" required />
+            @if (formUtils.isValidField(myForm, 'email')){
+            <small class="text-error">{{ formUtils.getFieldError(myForm, 'email') }}</small>
+            }
+
+            <label class="label font-semibold">Contraseña</label>
+            <input type="password" class="input input-bordered w-full" placeholder="••••••••" formControlName="password"
+              required />
+            @if (formUtils.isValidField(myForm, 'password')){
+            <small class="text-error">{{ formUtils.getFieldError(myForm, 'password') }}</small>
+            }
+
+            <div class="flex items-center justify-between text-sm">
+              <a class="link link-hover" [routerLink]="['/cuenta/recuperar-password']">
+                ¿Olvidaste tu contraseña?
+              </a>
+              <a class="link link-primary" [routerLink]="['/registro']">
+                Crear cuenta
+              </a>
+            </div>
+
+            <button class="btn btn-primary w-full mt-4" [disabled]="loading">
+              @if (!loading) {
+              Iniciar sesión
+              } @else {
+              <span class="loading loading-spinner loading-sm"></span>
+              }
+            </button>
+          </fieldset>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+</form>

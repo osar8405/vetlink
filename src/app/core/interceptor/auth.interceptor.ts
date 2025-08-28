@@ -8,9 +8,7 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   // Evitar interceptar la solicitud de renovación de token
   if (
-    req.url.includes('/Usuarios/renovar-token') ||
-    req.url.includes('microsoftonline') ||
-    req.url.includes('microsof')
+    req.url.includes('/Auth/renovar-token')
   ) {
     return next(req);
   }
@@ -55,7 +53,6 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
           catchError((renewErr) => {
             console.error('Renovación falló, cerrando sesión');
             auth.logOut();
-            // redirige al login
             setTimeout(() => {
               router.navigate(['/login'], {
                 queryParams: { sessionExpired: true },

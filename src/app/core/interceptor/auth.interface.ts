@@ -6,8 +6,8 @@ export interface RenewResp {
 }
 export interface Login {
   response: Token;
-  status:     boolean;
-  message:    string[];
+  status: boolean;
+  message: string[];
 }
 
 export interface Token {

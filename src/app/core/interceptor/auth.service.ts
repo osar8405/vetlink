@@ -7,7 +7,7 @@ import type { Login } from './auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiBase = `${AppConfig.APIREST_URL}/api/Usuarios`;
+  private apiBase = `${AppConfig.APIREST_URL}/api/Auth`;
   private tokenSub = new BehaviorSubject<string | null>(null);
   token$ = this.tokenSub.asObservable();
 
@@ -19,8 +19,8 @@ export class AuthService {
   login(credenciales: any) {
     return this.http
       .post<Login>(`${this.apiBase}/login`, {
-        UserName: credenciales.email,
-        Password: credenciales.password,
+        email: credenciales.email,
+        password: credenciales.password,
       })
       .pipe(
         tap((resp) => {
