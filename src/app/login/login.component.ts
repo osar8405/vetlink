@@ -6,9 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../core/interceptor/auth.service';
-import { FormUtils } from '../core/utils/form-utils';
-// import { NotificacionService } from '../shared/services/notificacion.service';
+import { AuthService } from '@core/interceptor/auth.service';
+import { FormUtils } from '@core/utils/form-utils';
+import { NotificacionService } from '@shared/services/notificacion.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent {
   router = inject(Router);
   fb = inject(FormBuilder);
   route = inject(ActivatedRoute);
-  // notificacion = inject(NotificacionService);
+  notificacion = inject(NotificacionService);
   loginError = false;
   loading = false;
   credencialesInvalidas = false;
@@ -34,10 +34,10 @@ export class LoginComponent {
   constructor() {
     this.route.queryParams.subscribe((params) => {
       if (params['sessionExpired']) {
-        // this.notificacion.show(
-        //   'Tu sesión expiró, vuelve a iniciar sesión',
-        //   'warning'
-        // );
+        this.notificacion.show(
+          'Tu sesión expiró, vuelve a iniciar sesión',
+          'warning'
+        );
         this.router.navigate([], {
           queryParams: {
             sessionExpired: null,
@@ -66,10 +66,10 @@ export class LoginComponent {
       },
       error: (e) => {
         this.loading = false;
-        // this.notificacion.show(
-        //   'Ocurrio un error al iniciar sesión, inténtelo nuevamente',
-        //   'error'
-        // );
+        this.notificacion.show(
+          'Ocurrio un error al iniciar sesión, inténtelo nuevamente',
+          'error'
+        );
       },
       complete: () => {
         this.loading = false;
