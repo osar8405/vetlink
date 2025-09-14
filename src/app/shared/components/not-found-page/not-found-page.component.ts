@@ -2,7 +2,7 @@ import { Component, inject, input } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-not-found-page',
+  selector: 'shared-not-found-page',
   imports: [],
   templateUrl: './not-found-page.component.html',
 })

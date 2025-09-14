@@ -1,12 +1,11 @@
 <main class="m-auto flex-grow flex flex-col min-h-screen">
   @if (showLayout) {
-  <shared-navbar (abrirLogin)="mostrarLogin()" class="mb-3" />
+  <shared-navbar></shared-navbar>
   }
-
+  <shared-alert />
   <router-outlet />
   @if (showLayout) {
-  <div class="flex-1 flex-grow"></div>
-  <!-- <shared-login-modal [visible]="loginVisible()" (closed)="cerrarLogin()" /> -->
-  <shared-footer />
+  <div class=" flex-1 flex-grow"></div>
+  <shared-footer></shared-footer>
   }
 </main>

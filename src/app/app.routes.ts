@@ -48,4 +48,8 @@ export const routes: Routes = [
         (m) => m.DashboardComponent
       ),
   },
+   {
+    path: 'clinicas',
+    loadChildren: () => import('./vetLink/clinica/clinicas.routes'),
+  },
 ];

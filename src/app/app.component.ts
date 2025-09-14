@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoginComponent } from "./cuenta/login/login.component";
-import { LoginModalComponent } from "./shared/components/login-modal/login-modal.component";
 import { Router, NavigationEnd } from '@angular/router';
+import { AlertComponent } from "./shared/components/alert/alert.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoginComponent, LoginModalComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoginComponent, AlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -1,1 +1,109 @@
-<p>clinicas-update works!</p>,
+@if (clinicaResource?.error()) {
+<shared-not-found-page mensaje="{{clinicaResource?.error()}}" />
+}
+@if (!clinicaResource?.error()) {
+<div class="min-h-screen flex items-center justify-center bg-base-200 p-5">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()"
+    class="bg-base-100 p-8 rounded-2xl shadow-lg w-full max-w-4xl">
+    <h2 class="text-3xl font-bold mb-6">Datos de la clinica</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @if (isEditMode) {
+      <div>
+        <label class="label">ID</label>
+        <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
+      </div>
+      <div></div>
+      }
+
+      <!-- Nombre -->
+      <div>
+        <label class="label">Clinica</label>
+        <input type="text" formControlName="nombreHotel" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'nombreHotel')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'nombreHotel')}}
+        </small>
+        }
+      </div>
+
+      <!-- Dirección -->
+      <div>
+        <label class="label">Dirección</label>
+        <input type="text" formControlName="direccion" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'direccion')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'direccion')}}
+        </small>
+        }
+      </div>
+
+      <!-- Latitud -->
+      <div>
+        <label class="label">Teléfono</label>
+        <input type="number" formControlName="latitud" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'latitud')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'latitud')}}
+        </small>
+        }
+      </div>
+
+      <!-- Longitud -->
+      <div>
+        <label class="label">Horario de atención</label>
+        <input type="number" formControlName="longitud" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'longitud')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'longitud')}}
+        </small>
+        }
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label class="label">Correo electrónico</label>
+        <input type="email" formControlName="telefono" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'telefono')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'telefono')}}
+        </small>
+        }
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="label">Detalles</label>
+        <textarea class="textarea w-full min-h-[150px]" formControlName="detalles"></textarea>
+        @if (formUtils.isValidField(myForm, 'detalles')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'detalles')}}
+        </small>
+        }
+      </div>
+
+      <!-- Foto -->
+      <div>
+        <label class="label">Foto</label>
+        <input #fileInput type="file" class="file-input file-input-bordered w-full" (change)="onFileSelected($event)"
+          accept="image/*" />
+        @if(imagePreview) {
+        <img [src]="imagePreview" alt="Preview" class="max-h-[190px] w-auto object-cover mt-4 rounded-lg shadow-md" />
+        <button type="button" (click)="limpiarImagen(fileInput)" class="btn btn-error mt-2">Quitar imagen</button>
+        }
+        @if (formUtils.isValidField(myForm, 'imagen')){
+        <small class="text-error">
+          {{formUtils.getFieldError(myForm, 'imagen')}}
+        </small>
+        }
+      </div>
+
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end mt-8 gap-4">
+      <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+}

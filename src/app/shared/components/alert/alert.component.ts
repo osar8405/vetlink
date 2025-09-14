@@ -3,7 +3,7 @@ import { NotificacionService } from '../../services/notificacion.service';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-alert',
+  selector: 'shared-alert',
   imports: [NgClass],
   templateUrl: './alert.component.html',
 })
