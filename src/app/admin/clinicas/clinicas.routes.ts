@@ -4,7 +4,7 @@ import { ClinicasUpdateComponent } from './components/clinicas-update/clinicas-u
 
 export const ClinicasRoutes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: ClinicasListComponent,
   },
   {
@@ -17,7 +17,7 @@ export const ClinicasRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'list',
   },
 ];
 

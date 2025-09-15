@@ -49,7 +49,7 @@ export const routes: Routes = [
       ),
   },
    {
-    path: 'clinicas',
-    loadChildren: () => import('./vetLink/clinica/clinicas.routes'),
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes'),
   },
 ];

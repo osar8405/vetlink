@@ -58,7 +58,7 @@ export class LoginComponent {
     this.authService.login(this.myForm.value).subscribe({
       next: (data) => {
         if (data.status) {
-          this.router.navigateByUrl('/clinicas');
+          this.router.navigateByUrl('/admin/clinicas');
         } else {
           this.loginError = false;
           this.credencialesInvalidas = true;
@@ -66,11 +66,10 @@ export class LoginComponent {
       },
       error: (e) => {
         this.loading = false;
-        this.router.navigateByUrl('/clinicas');
-        // this.notificacion.show(
-        //   'Ocurrio un error al iniciar sesión, inténtelo nuevamente',
-        //   'error'
-        // );
+        this.notificacion.show(
+          'Ocurrio un error al iniciar sesión, inténtelo nuevamente',
+          'error'
+        );
       },
       complete: () => {
         this.loading = false;
