@@ -6,8 +6,8 @@ import {
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ClinicasService } from '../../services/clinicas.service';
 import { catchError, map, of } from 'rxjs';
-import { IconRefreshComponent } from '@shared/components/icons/icon-refresh/icon-refresh.component';
-import { IconAddComponent } from '@shared/components/icons/icon-add/icon-add.component';
+import { IconRefreshComponent } from '@shared/icons/icon-refresh/icon-refresh.component';
+import { IconAddComponent } from '@shared/icons/icon-add/icon-add.component';
 import { RouterLink } from '@angular/router';
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
