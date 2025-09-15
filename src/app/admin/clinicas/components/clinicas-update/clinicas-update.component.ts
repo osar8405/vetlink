@@ -17,13 +17,10 @@ import { NotFoundPageComponent } from '@shared/components/not-found-page/not-fou
 import { NotificacionService } from '@shared/services/notificacion.service';
 @Component({
   selector: 'app-clinicas-update',
-   imports: [
-    NotFoundPageComponent,
-    ReactiveFormsModule,
-  ],
+  imports: [NotFoundPageComponent, ReactiveFormsModule],
   templateUrl: './clinicas-update.component.html',
 })
-export class ClinicasUpdateComponent { 
+export class ClinicasUpdateComponent {
   clinicasService = inject(ClinicasService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
