@@ -8,7 +8,10 @@
       "@shared/*": [
         "src/app/shared/*"
       ],
-      "@core/*": ["src/app/core/*"]
+      "@core/*": ["src/app/core/*"],
+      "@assets/*": [
+        "src/assets/*"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

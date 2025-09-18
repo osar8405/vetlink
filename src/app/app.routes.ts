@@ -39,7 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./cuenta/cuenta.routes')
+    loadChildren: () => import('./cuenta/cuenta.routes'),
   },
   {
     path: 'cliente',
@@ -48,8 +48,12 @@ export const routes: Routes = [
         (m) => m.DashboardComponent
       ),
   },
-   {
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.routes'),
+  },
+  {
+    path: 'catalogos',
+    loadChildren: () => import('./vetLink/catalogos/catalogos.routes')
   },
 ];
