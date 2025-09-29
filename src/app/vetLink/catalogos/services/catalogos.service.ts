@@ -22,7 +22,7 @@ export class CatalogosService {
   ): Observable<CatalogosResponse> {
     return this.http
       .get<CatalogosResponse>(
-        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/${catalogoId}`
+        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/Detalles/${catalogoId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
@@ -47,7 +47,7 @@ export class CatalogosService {
   ): Observable<CatalogosResponse> {
     return this.http
       .put<CatalogosResponse>(
-        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/${catalogo.id}`,
+        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/Edita/${catalogo.id}`,
         {
           descripcion: catalogo.descripcion,
         }
@@ -61,7 +61,7 @@ export class CatalogosService {
   ): Observable<CatalogosResponse> {
     return this.http
       .delete<CatalogosResponse>(
-        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/${catalogoId}`
+        `${AppConfig.APIREST_URL}api/Catalogos/${nombreCatalogo}/Eliminar/${catalogoId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

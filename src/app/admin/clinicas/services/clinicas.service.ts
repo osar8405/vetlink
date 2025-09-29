@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { AppConfig } from '@shared/app-config';
+import { AcercaComponent } from '../../../acerca/acerca.component';
 import type {
   Clinica,
   ClinicasResponse,
@@ -30,29 +31,20 @@ export class ClinicasService {
       .post<ClinicasResponse>(
         `${AppConfig.APIREST_URL}/api/Administracion/registrar`,
         {
-          nombreClinica: 'string',
-          telefono: 'string',
-          sitioWeb: 'string',
-          emailClinica: 'string',
+          nombreClinica: clinica.nombreClinica,
+          email: clinica.email,
+          telefono: clinica.telefono,
+          activo: true,
+          suscripcionId: 0,
           direccion: {
-            calle: 'string',
-            noInt: 'string',
-            noExt: 'string',
-            colonia: 'string',
-            municipio: 'string',
-            estado: 'string',
-            cp: 'string',
+            calle: clinica.direccion.calle,
+            noInt: clinica.direccion.noInt,
+            noExt: clinica.direccion.noExt,
+            colonia: clinica.direccion.colonia,
+            municipio: clinica.direccion.municipio,
+            estado: clinica.direccion.estado,
+            cp: clinica.direccion.cp,
           },
-          nombre: 'string',
-          primerApellido: 'string',
-          segundoApellido: 'string',
-          genero: 'string',
-          fechaNacimiento: '2025-09-15T19:17:24.183Z',
-          email: 'string',
-          password: 'string',
-          tipoUsuarioId: 0,
-          cedulaProfesional: 'string',
-          horarios: 'string',
         }
       )
       .pipe(catchError(AppConfig.handleErrors));
@@ -63,15 +55,20 @@ export class ClinicasService {
       .put<ClinicasResponse>(
         `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${clinica.id}`,
         {
-          nombreHotel: clinica.nombreHotel,
+          nombreClinica: clinica.nombreClinica,
+          email: clinica.email,
           telefono: clinica.telefono,
-          direccion: clinica.direccion,
-          latitud: clinica.latitud,
-          longitud: clinica.longitud,
-          imagen: clinica.url,
-          eventoId: clinica.eventoId,
-          detalles: clinica.detalles,
-          convencionistasIds: clinica.convencionistasIds,
+          activo: clinica.activo,
+          suscripcionId: clinica.suscripcionId,
+          direccion: {
+            calle: clinica.direccion.calle,
+            noInt: clinica.direccion.noInt,
+            noExt: clinica.direccion.noExt,
+            colonia: clinica.direccion.colonia,
+            municipio: clinica.direccion.municipio,
+            estado: clinica.direccion.estado,
+            cp: clinica.direccion.cp,
+          },
         }
       )
       .pipe(catchError(AppConfig.handleErrors));
@@ -80,7 +77,7 @@ export class ClinicasService {
   eliminaClinica(clinicaId: number): Observable<ClinicasResponse> {
     return this.http
       .delete<ClinicasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/${clinicaId}`
+        `${AppConfig.APIREST_URL}/api/Clinica/Eliminar/${clinicaId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

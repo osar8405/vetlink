@@ -3,9 +3,8 @@
 }
 @if (!clinicaResource?.error()) {
 <div class="min-h-screen flex items-center justify-center bg-base-200 p-5">
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()"
-    class="bg-base-100 p-8 rounded-2xl shadow-lg w-full max-w-4xl">
-    <h2 class="text-3xl font-bold mb-6">Datos de la clinica</h2>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="bg-base-100 p-8 rounded-2xl shadow-lg w-full max-w-4xl">
+    <h2 class="text-3xl font-bold mb-6">Datos de la clínica</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       @if (isEditMode) {
@@ -16,54 +15,32 @@
       <div></div>
       }
 
-      <!-- Nombre -->
+      <!-- nombreClinica -->
       <div>
-        <label class="label">Clinica</label>
-        <input type="text" formControlName="nombreHotel" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'nombreHotel')){
+        <label class="label">Clínica</label>
+        <input type="text" formControlName="nombreClinica" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'nombreClinica')){
         <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'nombreHotel')}}
+          {{formUtils.getFieldError(myForm, 'nombreClinica')}}
         </small>
         }
       </div>
 
-      <!-- Dirección -->
+      <!-- email -->
       <div>
-        <label class="label">Dirección</label>
-        <input type="text" formControlName="direccion" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'direccion')){
+        <label class="label">Email</label>
+        <input type="email" formControlName="email" class="input input-bordered w-full" />
+        @if (formUtils.isValidField(myForm, 'email')){
         <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'direccion')}}
+          {{formUtils.getFieldError(myForm, 'email')}}
         </small>
         }
       </div>
 
-      <!-- Latitud -->
+      <!-- telefono -->
       <div>
         <label class="label">Teléfono</label>
-        <input type="number" formControlName="latitud" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'latitud')){
-        <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'latitud')}}
-        </small>
-        }
-      </div>
-
-      <!-- Longitud -->
-      <div>
-        <label class="label">Horario de atención</label>
-        <input type="number" formControlName="longitud" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'longitud')){
-        <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'longitud')}}
-        </small>
-        }
-      </div>
-
-      <!-- Teléfono -->
-      <div>
-        <label class="label">Correo electrónico</label>
-        <input type="email" formControlName="telefono" class="input input-bordered w-full" />
+        <input type="text" formControlName="telefono" class="input input-bordered w-full" />
         @if (formUtils.isValidField(myForm, 'telefono')){
         <small class="text-error">
           {{formUtils.getFieldError(myForm, 'telefono')}}
@@ -71,33 +48,64 @@
         }
       </div>
 
-      <div class="md:col-span-2">
-        <label class="label">Detalles</label>
-        <textarea class="textarea w-full min-h-[150px]" formControlName="detalles"></textarea>
-        @if (formUtils.isValidField(myForm, 'detalles')){
-        <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'detalles')}}
-        </small>
-        }
-      </div>
-
-      <!-- Foto -->
-      <div>
-        <label class="label">Foto</label>
-        <input #fileInput type="file" class="file-input file-input-bordered w-full" (change)="onFileSelected($event)"
-          accept="image/*" />
-        @if(imagePreview) {
-        <img [src]="imagePreview" alt="Preview" class="max-h-[190px] w-auto object-cover mt-4 rounded-lg shadow-md" />
-        <button type="button" (click)="limpiarImagen(fileInput)" class="btn btn-error mt-2">Quitar imagen</button>
-        }
-        @if (formUtils.isValidField(myForm, 'imagen')){
-        <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'imagen')}}
-        </small>
-        }
-      </div>
 
     </div>
+
+    <!-- Sección Dirección -->
+    <div formGroupName="direccion" class="mt-10">
+      <h3 class="text-2xl font-semibold mb-4">Dirección</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="label">Calle</label>
+          <input type="text" formControlName="calle" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'calle')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'calle') }}
+          </small>
+          }
+        </div>
+        <div>
+          <label class="label">Colonia</label>
+          <input type="text" formControlName="colonia" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="label">No. Interior</label>
+          <input type="text" formControlName="noInt" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="label">No. Exterior</label>
+          <input type="text" formControlName="noExt" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="label">Municipio</label>
+          <input type="text" formControlName="municipio" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="label">Estado</label>
+          <input type="text" formControlName="estado" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="label">Código Postal</label>
+          <input type="text" formControlName="cp" class="input input-bordered w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Foto -->
+    <!-- <div class="mt-10">
+      <label class="label">Foto</label>
+      <input #fileInput type="file" class="file-input file-input-bordered w-full" (change)="onFileSelected($event)"
+        accept="image/*" />
+      @if(imagePreview) {
+      <img [src]="imagePreview" alt="Preview" class="max-h-[190px] w-auto object-cover mt-4 rounded-lg shadow-md" />
+      <button type="button" (click)="limpiarImagen(fileInput)" class="btn btn-error mt-2">Quitar imagen</button>
+      }
+      @if (formUtils.isValidField(myForm, 'imagen')){
+      <small class="text-error">
+        {{formUtils.getFieldError(myForm, 'imagen')}}
+      </small>
+      }
+    </div> -->
 
     <!-- Botones -->
     <div class="flex justify-end mt-8 gap-4">

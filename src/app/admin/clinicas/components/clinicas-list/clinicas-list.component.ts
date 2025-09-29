@@ -26,16 +26,14 @@ export class ClinicasListComponent {
   notificacion = inject(NotificacionService);
   mensajeEliminar = '';
   @ViewChild('deleteModal') deleteModal!: ConfirmModalComponent;
-  hotelId: number = 0;
+  clinicaId: number = 0;
 
   clinicasResource = rxResource({
     loader: () => {
       return this.clinicasService
         .obtieneClinicas()
         .pipe(
-          map((resp) => resp.response.map(hotel => ({
-            ...hotel, imagen: `${hotel.imagen}?n=${Math.random()}`
-          }))),
+          map((resp) => resp.response),
           catchError(error => {
             this.notificacion.show(
               'Ocurrio un error al cargar la lista de clinicas.',
@@ -51,19 +49,19 @@ export class ClinicasListComponent {
     this.clinicasResource.reload();
   }
 
-  abrirModal(hotelId: number) {
-    this.hotelId = hotelId;
-    this.mensajeEliminar = `¿Está seguro de eliminar el registro ${hotelId}? Esta acción no se puede deshacer.`;
+  abrirModal(clinicaId: number) {
+    this.clinicaId = clinicaId;
+    this.mensajeEliminar = `¿Está seguro de eliminar el registro ${clinicaId}? Esta acción no se puede deshacer.`;
     this.deleteModal.show();
   }
 
   eliminaClinica() {
-    this.clinicasService.eliminaClinica(this.hotelId).subscribe({
+    this.clinicasService.eliminaClinica(this.clinicaId).subscribe({
       next: (data) => {
         if (data.status) {
           this.notificacion.show('Clinica eliminada correctamente', 'success');
-          this.clinicasResource.update((hoteles) => {
-            return hoteles?.filter((hotel) => hotel.id !== this.hotelId);
+          this.clinicasResource.update((clinicas) => {
+            return clinicas?.filter((clinica) => clinica.id !== this.clinicaId);
           });
         }
       },

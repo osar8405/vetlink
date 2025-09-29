@@ -1,9 +1,17 @@
 import { Routes } from '@angular/router';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 export const AdminRoutes: Routes = [
   {
-    path: 'clinicas',
-    loadChildren: () => import('./clinicas/clinicas.routes'),
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'clinicas',
+        loadChildren: () => import('./clinicas/clinicas.routes'),
+      },
+
+    ]
   },
   {
     path: '**',

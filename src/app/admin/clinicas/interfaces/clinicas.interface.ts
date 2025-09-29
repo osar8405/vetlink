@@ -1,20 +1,25 @@
 export interface ClinicasResponse {
   response: Clinica[];
   status:   boolean;
-  message:  string[];
+  message:  any[];
 }
 
 export interface Clinica {
-  id:                 number;
-  nombreHotel:        string;
-  telefono:           string;
-  direccion:          string;
-  latitud:            string;
-  longitud:           string;
-  imagen:             string;
-  eventoId:           number;
-  nombreEvento:       string;
-  url:                string;
-  detalles:           string;
-  convencionistasIds: number[];
+  id:            number;
+  nombreClinica: string;
+  email:         string;
+  telefono:      string;
+  activo:        boolean;
+  suscripcionId: number;
+  direccion:     Direccion;
+}
+
+export interface Direccion {
+  calle:     string;
+  noInt:     string;
+  noExt:     string;
+  colonia:   string;
+  municipio: string;
+  estado:    string;
+  cp:        string;
 }

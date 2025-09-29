@@ -6,7 +6,7 @@
         <shared-icon-refresh />
         Refrescar
       </a>
-      <a routerLink="new" class="btn btn-primary">
+      <a routerLink="/admin/clinicas/new" class="btn btn-primary">
         <shared-icon-add />
         Nuevo
       </a>
@@ -20,38 +20,38 @@
           <th>Id</th>
           <th>Clinica</th>
           <th>Dirección</th>
-          <th>Teléfono</th>
+          <th>Estatus</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        @for (hotel of clinicasResource.value(); track hotel.id) {
+        @for (clinica of clinicasResource.value(); track clinica.id) {
         <tr>
-          <td>{{hotel.id}}</td>
+          <td>{{clinica.id}}</td>
           <td>
             <div class="flex items-center gap-3">
               <div class="avatar">
                 <div class="mask mask-squircle h-12 w-12">
-                  <img [src]="hotel.imagen" [alt]="hotel.nombreHotel" class="object-contain " />
+                  <img src="" [alt]="clinica.nombreClinica" class="object-contain " />
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{hotel.nombreHotel}}</div>
-                <div class="text-sm opacity-50">Tel: {{hotel.telefono}}</div>
+                <div class="font-bold">{{clinica.nombreClinica}}</div>
+                <div class="text-sm opacity-50">Tel: {{clinica.telefono}}</div>
               </div>
             </div>
           </td>
           <td>
-            {{hotel.direccion}}
+            {{clinica.direccion.calle}}
             <br />
-            <span class="badge badge-ghost badge-sm">{{hotel.latitud}} {{hotel.longitud}}</span>
+            <span class="badge badge-ghost badge-sm">{{clinica.direccion.municipio}}</span>
           </td>
-          <td>{{hotel.nombreEvento}}</td>
+          <td>{{clinica.activo ? 'Activo' : 'Inactivo'}}</td>
           <th>
-            <button class="btn btn-primary btn-xs" [routerLink]="[`${hotel.id}/edit`]">Editar</button>
+            <button class="btn btn-primary btn-xs" [routerLink]="[`/admin/clinicas/${clinica.id}/edit`]">Editar</button>
           </th>
           <th>
-            <button class="btn btn-secondary btn-xs" (click)="abrirModal(hotel.id)">Eliminar</button>
+            <button class="btn btn-secondary btn-xs" (click)="abrirModal(clinica.id)">Eliminar</button>
           </th>
         </tr>
         }
@@ -61,4 +61,4 @@
 </div>
 
 <shared-confirm-modal #deleteModal titulo="¡Confirmar Eliminación!" mensajeAceptar="Si, Eliminar"
-  mensaje="{{mensajeEliminar}}" (confirmar)="eliminaClinica()" (cancelar)="hotelId = 0" />
+  mensaje="{{mensajeEliminar}}" (confirmar)="eliminaClinica()" (cancelar)="clinicaId = 0" />

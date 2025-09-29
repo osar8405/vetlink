@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { map, tap } from 'rxjs';
+import { map, subscribeOn, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
 import { FormUtils } from '@core/utils/form-utils';
@@ -32,19 +32,25 @@ export class ClinicasUpdateComponent {
   imagePreview: string | ArrayBuffer | null = null;
   clinicaId = this.route.snapshot.params['id'];
   isEditMode = !!this.clinicaId;
-
+  get direccionForm(): FormGroup {
+    return this.myForm.get('direccion') as FormGroup;
+  }
   myForm: FormGroup = this.fb.group({
     id: [0],
-    nombreHotel: ['', Validators.required],
+    nombreClinica: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     telefono: ['', Validators.required],
-    direccion: ['', Validators.required],
-    latitud: ['', Validators.required],
-    longitud: ['', Validators.required],
-    imagen: [null, Validators.required],
-    url: [''],
-    eventoId: ['', Validators.required],
-    detalles: [''],
-    convencionistasIds: [[], FormUtils.arrayRequired()],
+    activo: [true],
+    suscripcionId: [0],
+    direccion: this.fb.group({
+      calle: ['', Validators.required],
+      noInt: [''],
+      noExt: ['', Validators.required],
+      colonia: ['', Validators.required],
+      municipio: ['', Validators.required],
+      estado: ['', Validators.required],
+      cp: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
+    }),
   });
 
   clinicaResource = this.isEditMode
@@ -75,18 +81,21 @@ export class ClinicasUpdateComponent {
   private llenaFormulario(clinica: any): void {
     this.myForm.patchValue({
       id: clinica.id,
-      nombreclinica: clinica.nombreclinica,
+      nombreClinica: clinica.nombreClinica,
+      email: clinica.email,
       telefono: clinica.telefono,
-      direccion: clinica.direccion,
-      latitud: clinica.latitud,
-      longitud: clinica.longitud,
-      imagen: clinica.imagen,
-      url: clinica.imagen,
-      eventoId: clinica.eventoId,
-      detalles: clinica.detalles,
-      convencionistasIds: clinica.convencionistasIds,
+      activo: clinica.activo,
+      suscripcionId: clinica.suscripcionId,
+      direccion: this.fb.group({
+        calle: clinica.direccion.calle,
+        noInt: clinica.direccion.noInt,
+        noExt: clinica.direccion.noExt,
+        colonia: clinica.direccion.colonia,
+        municipio: clinica.direccion.municipio,
+        estado: clinica.direccion.estado,
+        cp: clinica.direccion.cp,
+      }),
     });
-    this.imagePreview = clinica.imagen;
   }
 
   onFileSelected(event: Event): void {
