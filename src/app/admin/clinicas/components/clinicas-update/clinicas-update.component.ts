@@ -86,7 +86,7 @@ export class ClinicasUpdateComponent {
       telefono: clinica.telefono,
       activo: clinica.activo,
       suscripcionId: clinica.suscripcionId,
-      direccion: this.fb.group({
+      direccion: {
         calle: clinica.direccion.calle,
         noInt: clinica.direccion.noInt,
         noExt: clinica.direccion.noExt,
@@ -94,7 +94,7 @@ export class ClinicasUpdateComponent {
         municipio: clinica.direccion.municipio,
         estado: clinica.direccion.estado,
         cp: clinica.direccion.cp,
-      }),
+      },
     });
   }
 

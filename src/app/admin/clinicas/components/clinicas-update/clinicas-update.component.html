@@ -2,8 +2,8 @@
 <shared-not-found-page mensaje="{{clinicaResource?.error()}}" />
 }
 @if (!clinicaResource?.error()) {
-<div class="min-h-screen flex items-center justify-center bg-base-200 p-5">
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="bg-base-100 p-8 rounded-2xl shadow-lg w-full max-w-4xl">
+<div class="min-h-screen flex items-center justify-center p-5">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class=" p-8 rounded-2xl shadow-lg w-full max-w-4xl">
     <h2 class="text-3xl font-bold mb-6">Datos de la clínica</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -67,26 +67,59 @@
         <div>
           <label class="label">Colonia</label>
           <input type="text" formControlName="colonia" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'colonia')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'colonia') }}
+          </small>
+          }
         </div>
-        <div>
-          <label class="label">No. Interior</label>
-          <input type="text" formControlName="noInt" class="input input-bordered w-full" />
-        </div>
+
         <div>
           <label class="label">No. Exterior</label>
           <input type="text" formControlName="noExt" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'noExt')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'noExt') }}
+          </small>
+          }
         </div>
+
+        <div>
+          <label class="label">No. Interior</label>
+          <input type="text" formControlName="noInt" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'noInt')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'noInt') }}
+          </small>
+          }
+        </div>
+
         <div>
           <label class="label">Municipio</label>
           <input type="text" formControlName="municipio" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'municipio')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'municipio') }}
+          </small>
+          }
         </div>
         <div>
           <label class="label">Estado</label>
           <input type="text" formControlName="estado" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'estado')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'estado') }}
+          </small>
+          }
         </div>
         <div>
           <label class="label">Código Postal</label>
           <input type="text" formControlName="cp" class="input input-bordered w-full" />
+          @if (formUtils.isValidField(direccionForm, 'cp')) {
+          <small class="text-error">
+            {{ formUtils.getFieldError(direccionForm, 'cp') }}
+          </small>
+          }
         </div>
       </div>
     </div>
