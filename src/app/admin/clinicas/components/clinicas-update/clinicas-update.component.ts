@@ -15,9 +15,10 @@ import type { Clinica } from '../../interfaces/clinicas.interface';
 import { ClinicasService } from '../../services/clinicas.service';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
+import { FormErrorLabelComponent } from "@shared/components/form-error-label/form-error-label.component";
 @Component({
   selector: 'app-clinicas-update',
-  imports: [NotFoundPageComponent, ReactiveFormsModule],
+  imports: [NotFoundPageComponent, ReactiveFormsModule, FormErrorLabelComponent],
   templateUrl: './clinicas-update.component.html',
 })
 export class ClinicasUpdateComponent {

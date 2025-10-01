@@ -18,12 +18,13 @@
       <!-- nombreClinica -->
       <div>
         <label class="label">Clínica</label>
-        <input type="text" formControlName="nombreClinica" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'nombreClinica')){
+        <input type="text" formControlName="nombreClinica" class="input input-bordered w-full" [class.border-red-500]="myForm.get('nombreClinica')?.errors ?? false" />
+        <!-- @if (formUtils.isValidField(myForm, 'nombreClinica')){
         <small class="text-error">
           {{formUtils.getFieldError(myForm, 'nombreClinica')}}
         </small>
-        }
+        } -->
+        <shared-form-error-label [control]="myForm.get('nombreClinica')!"></shared-form-error-label>
       </div>
 
       <!-- email -->

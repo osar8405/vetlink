@@ -1,0 +1,24 @@
+import { Routes } from '@angular/router';
+import { PersonasListComponent } from './components/personas-list/personas-list.component';
+import { PersonasUpdateComponent } from './components/personas-update/personas-update.component';
+
+export const PersonasRoutes: Routes = [
+  {
+    path: 'list',
+    component: PersonasListComponent,
+  },
+  {
+    path: ':id/edit',
+    component: PersonasUpdateComponent,
+  },
+  {
+    path: 'new',
+    component: PersonasUpdateComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'list',
+  },
+];
+
+export default PersonasRoutes;
