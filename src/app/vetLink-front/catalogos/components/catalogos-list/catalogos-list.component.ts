@@ -1,5 +1,5 @@
-import { IconEditComponent } from './../../../../../assets/icons/icon-edit/icon-edit.component';
-import { IconDeleteComponent } from './../../../../../assets/icons/icon-delete/icon-delete.component';
+import { IconEditComponent } from '../../../../../assets/icons/icon-edit/icon-edit.component';
+import { IconDeleteComponent } from '../../../../../assets/icons/icon-delete/icon-delete.component';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';

@@ -2,6 +2,15 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes'),
+  },
+  {
+    path: '',
+    loadChildren: () => import('./vetLink-front/vetLink-front.routes'),
+  },
+
+  {
     path: 'login',
     loadComponent: () =>
       import('./login/login.component').then((m) => m.LoginComponent),
@@ -49,19 +58,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.routes'),
-  },
-  {
     path: 'catalogos',
-    loadChildren: () => import('./vetLink/catalogos/catalogos.routes'),
-  },
-  {
-    path: 'personas',
-    loadChildren: () => import('./vetLink/personas/personas.routes'),
-  },
-  {
-    path: 'tipo-usuario',
-    loadChildren: () => import('./vetLink/tipoUsuario/tipoUsuario.routes'),
+    loadChildren: () => import('./vetLink-front/catalogos/catalogos.routes'),
   },
 ];
