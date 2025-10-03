@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Location } from '@angular/common';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { map, subscribeOn, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
@@ -25,13 +25,16 @@ export class ClinicasUpdateComponent {
   clinicasService = inject(ClinicasService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
-  private route = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
   cdnService = inject(CdnService);
   location = inject(Location);
   formUtils = FormUtils;
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
-  clinicaId = this.route.snapshot.params['id'];
+  // clinicaId = this.route.snapshot.params['id'];
+  clinicaId = toSignal(this.activatedRoute.params.pipe(
+    map(params => params['id'])
+  ));
   isEditMode = !!this.clinicaId;
   get direccionForm(): FormGroup {
     return this.myForm.get('direccion') as FormGroup;
@@ -57,7 +60,7 @@ export class ClinicasUpdateComponent {
   clinicaResource = this.isEditMode
     ? rxResource({
         loader: () => {
-          return this.clinicasService.obtieneClinica(this.clinicaId).pipe(
+          return this.clinicasService.obtieneClinica(this.clinicaId()).pipe(
             tap((resp) => {
               if (!resp.status) {
                 throw new Error(resp.message?.[0] || 'Error desconocido');

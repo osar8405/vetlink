@@ -26,50 +26,18 @@ export class ClinicasService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  nuevaClinica(clinica: Clinica): Observable<ClinicasResponse> {
+  nuevaClinica(clinicaLike: Partial<Clinica> ): Observable<ClinicasResponse> {
     return this.http
       .post<ClinicasResponse>(
-        `${AppConfig.APIREST_URL}/api/Administracion/registrar`,
-        {
-          nombreClinica: clinica.nombreClinica,
-          email: clinica.email,
-          telefono: clinica.telefono,
-          activo: true,
-          suscripcionId: 0,
-          direccion: {
-            calle: clinica.direccion.calle,
-            noInt: clinica.direccion.noInt,
-            noExt: clinica.direccion.noExt,
-            colonia: clinica.direccion.colonia,
-            municipio: clinica.direccion.municipio,
-            estado: clinica.direccion.estado,
-            cp: clinica.direccion.cp,
-          },
-        }
+        `${AppConfig.APIREST_URL}/api/Administracion/registrar`, clinicaLike
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  actualizaClinica(clinica: Clinica): Observable<ClinicasResponse> {
+  actualizaClinica(clinicaLike: Partial<Clinica>): Observable<ClinicasResponse> {
     return this.http
       .put<ClinicasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${clinica.id}`,
-        {
-          nombreClinica: clinica.nombreClinica,
-          email: clinica.email,
-          telefono: clinica.telefono,
-          activo: clinica.activo,
-          suscripcionId: clinica.suscripcionId,
-          direccion: {
-            calle: clinica.direccion.calle,
-            noInt: clinica.direccion.noInt,
-            noExt: clinica.direccion.noExt,
-            colonia: clinica.direccion.colonia,
-            municipio: clinica.direccion.municipio,
-            estado: clinica.direccion.estado,
-            cp: clinica.direccion.cp,
-          },
-        }
+        `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${clinicaLike.id}`, clinicaLike
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
