@@ -58,7 +58,7 @@ export class LoginComponent {
     this.authService.login(this.myForm.value).subscribe({
       next: (data) => {
         if (data.status) {
-          this.router.navigateByUrl('/admin/clinicas');
+          this.router.navigateByUrl('/dashboard');
         } else {
           this.loginError = false;
           this.credencialesInvalidas = true;
