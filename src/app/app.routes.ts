@@ -54,10 +54,14 @@ export const routes: Routes = [
   },
   {
     path: 'catalogos',
-    loadChildren: () => import('./vetLink/catalogos/catalogos.routes')
+    loadChildren: () => import('./vetLink/catalogos/catalogos.routes'),
   },
   {
     path: 'personas',
-    loadChildren: () => import('./vetLink/personas/personas.routes')
+    loadChildren: () => import('./vetLink/personas/personas.routes'),
+  },
+  {
+    path: 'tipo-usuario',
+    loadChildren: () => import('./vetLink/tipoUsuario/tipoUsuario.routes'),
   },
 ];
