@@ -4,15 +4,11 @@ import { TipoUsurioUpdateComponent } from './components/tipoUsurio-update/tipoUs
 
 export const TipoUsuarioRoutes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: TipoUsuarioListComponent,
   },
   {
-    path: ':id/edit',
-    component: TipoUsurioUpdateComponent,
-  },
-  {
-    path: 'new',
+    path: ':id',
     component: TipoUsurioUpdateComponent,
   },
   {

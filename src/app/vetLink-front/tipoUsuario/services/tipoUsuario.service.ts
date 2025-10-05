@@ -5,15 +5,16 @@ import { AppConfig } from '@shared/app-config';
 import type {
   TipoUsuario,
   TipoUsuarioResponse,
+  TipoUsuariosResponse,
 } from '../interfaces/tipoUsuario.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TipoUsuarioService {
   private http = inject(HttpClient);
 
-  obtieneTipoUsuarios(): Observable<TipoUsuarioResponse> {
+  obtieneTipoUsuarios(): Observable<TipoUsuariosResponse> {
     return this.http
-      .get<TipoUsuarioResponse>(
+      .get<TipoUsuariosResponse>(
         `${AppConfig.APIREST_URL}/api/TipoUsuario/listado`
       )
       .pipe(catchError(AppConfig.handleErrors));
@@ -29,9 +30,9 @@ export class TipoUsuarioService {
 
   nuevoTipoUsuario(
     tipoUsuarioLike: Partial<TipoUsuario>
-  ): Observable<TipoUsuarioResponse> {
+  ): Observable<TipoUsuariosResponse> {
     return this.http
-      .post<TipoUsuarioResponse>(
+      .post<TipoUsuariosResponse>(
         `${AppConfig.APIREST_URL}/api/TipoUsuario/Nuevo`,
         tipoUsuarioLike
       )
@@ -40,18 +41,18 @@ export class TipoUsuarioService {
 
   actualizaTipoUsuario(
     tipoUsuario: Partial<TipoUsuario>
-  ): Observable<TipoUsuarioResponse> {
+  ): Observable<TipoUsuariosResponse> {
     return this.http
-      .put<TipoUsuarioResponse>(
+      .put<TipoUsuariosResponse>(
         `${AppConfig.APIREST_URL}/api/TipoUsuario/Editar/${tipoUsuario.id}`,
         tipoUsuario
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  eliminaTipoUsuario(tipoUsuarioId: number): Observable<TipoUsuarioResponse> {
+  eliminaTipoUsuario(tipoUsuarioId: number): Observable<TipoUsuariosResponse> {
     return this.http
-      .delete<TipoUsuarioResponse>(
+      .delete<TipoUsuariosResponse>(
         `${AppConfig.APIREST_URL}/api/TipoUsuario/Eliminar/${tipoUsuarioId}`
       )
       .pipe(catchError(AppConfig.handleErrors));

@@ -32,7 +32,7 @@ export class TipoUsurioUpdateComponent {
   tipoUsuarioId = toSignal(this.activatedRoute.params.pipe(
     map(params => params['id'])
   ));
-  isEditMode = !!this.tipoUsuarioId();
+  isEditMode = this.tipoUsuarioId() === 'new' ? false : true;
   myForm: FormGroup = this.fb.group({
     id: [0],
     nombre: ['', Validators.required],
@@ -58,17 +58,23 @@ export class TipoUsurioUpdateComponent {
       effect(() => {
         const data = this.tipoUsuarioResource!.value();
         if (data?.status) {
-          this.llenaFormulario(data.response);
+          // this.llenaFormulario(data.response);
+          this.setFormValue(data.response);
         }
       });
     }
   }
 
-  private llenaFormulario(tipoUsuario: any): void {
+  private llenaFormulario(tipoUsuario: TipoUsuario): void {
     this.myForm.patchValue({
       id: tipoUsuario.id,
       nombre: tipoUsuario.nombre,
     });
+  }
+   setFormValue(formLike: Partial<TipoUsuario>) {
+    // this.myForm.reset(formLike as any);
+    // this.myForm.patchValue({ tags: formLike.tags?.join(',') });
+    this.myForm.patchValue(formLike as any);
   }
 
   onSubmit() {
