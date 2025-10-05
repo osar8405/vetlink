@@ -43,7 +43,7 @@ export class TipoUsuarioService {
   ): Observable<TipoUsuarioResponse> {
     return this.http
       .put<TipoUsuarioResponse>(
-        `${AppConfig.APIREST_URL}/api/TipoUsuario/Actualizar/${tipoUsuario.id}`,
+        `${AppConfig.APIREST_URL}/api/TipoUsuario/Editar/${tipoUsuario.id}`,
         tipoUsuario
       )
       .pipe(catchError(AppConfig.handleErrors));

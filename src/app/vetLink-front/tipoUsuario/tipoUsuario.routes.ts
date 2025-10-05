@@ -8,13 +8,13 @@ export const TipoUsuarioRoutes: Routes = [
     component: TipoUsuarioListComponent,
   },
   {
-    path: ':id',
+    path: ':id/edit',
     component: TipoUsurioUpdateComponent,
   },
-  // {
-  //   path: 'new',
-  //   component: TipoUsurioUpdateComponent,
-  // },
+  {
+    path: 'new',
+    component: TipoUsurioUpdateComponent,
+  },
   {
     path: '**',
     redirectTo: 'list',

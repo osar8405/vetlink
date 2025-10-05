@@ -8,7 +8,7 @@ import { AlertComponent } from "./shared/components/alert/alert.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoginComponent, AlertComponent],
+  imports: [RouterOutlet, AlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

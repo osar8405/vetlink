@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'shared-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {

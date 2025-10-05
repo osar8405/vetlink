@@ -1,1 +1,34 @@
-<p>tipoUsurio-update.component.ts works!</p>,
+@if (tipoUsuarioResource?.error()) {
+<shared-not-found-page mensaje="{{tipoUsuarioResource?.error()}}" />
+}
+@if (!tipoUsuarioResource?.error()) {
+<div class="min-h-screen flex items-center justify-center">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
+    <h2 class="text-3xl font-bold mb-6">Datos tipo usuario</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @if (isEditMode) {
+      <div>
+        <label class="label">ID</label>
+        <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
+      </div>
+      <div></div>
+      }
+
+      <!-- nombre -->
+      <div>
+        <label class="label">Nombre</label>
+        <input type="text" formControlName="nombre" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('nombre')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('nombre')!"></shared-form-error-label>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end mt-8 gap-4">
+      <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+}
