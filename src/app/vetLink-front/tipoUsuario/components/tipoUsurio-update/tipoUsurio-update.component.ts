@@ -58,8 +58,7 @@ export class TipoUsurioUpdateComponent {
       effect(() => {
         const data = this.tipoUsuarioResource!.value();
         if (data?.status) {
-          // this.llenaFormulario(data.response);
-          this.setFormValue(data.response);
+          this.llenaFormulario(data.response);
         }
       });
     }
@@ -70,11 +69,6 @@ export class TipoUsurioUpdateComponent {
       id: tipoUsuario.id,
       nombre: tipoUsuario.nombre,
     });
-  }
-   setFormValue(formLike: Partial<TipoUsuario>) {
-    // this.myForm.reset(formLike as any);
-    // this.myForm.patchValue({ tags: formLike.tags?.join(',') });
-    this.myForm.patchValue(formLike as any);
   }
 
   onSubmit() {
