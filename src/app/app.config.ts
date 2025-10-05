@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { authInterceptorFn } from '../app/core/interceptor/auth.interceptor';
+import { authInterceptorFn } from './auth/interceptor/auth.interceptor';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {

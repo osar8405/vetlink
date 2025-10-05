@@ -44,6 +44,7 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
         return auth.renewToken().pipe(
           switchMap(() => {
             const newToken = auth.getToken();
+            console.log('Token renovado con éxito, reintentando solicitud original...', newToken);
             const retryReq = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` },
             });
