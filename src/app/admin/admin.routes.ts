@@ -15,7 +15,10 @@ export const AdminRoutes: Routes = [
         path: 'clinicas',
         loadChildren: () => import('./clinicas/clinicas.routes'),
       },
-
+      {
+        path: 'catalogos',
+        loadChildren: () => import('../vetLink-front/catalogos/catalogos.routes'),
+      },
     ]
   },
   {

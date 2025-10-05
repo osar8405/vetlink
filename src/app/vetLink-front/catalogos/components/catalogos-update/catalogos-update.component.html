@@ -19,11 +19,7 @@
       <div>
         <label class="label">Elemento</label>
         <input type="text" formControlName="descripcion" class="input input-bordered w-full" />
-        @if (formUtils.isValidField(myForm, 'descripcion')){
-        <small class="text-error">
-          {{formUtils.getFieldError(myForm, 'descripcion')}}
-        </small>
-        }
+       <shared-form-error-label [control]="myForm.get('descripcion')!"></shared-form-error-label>
       </div>
     </div>
 

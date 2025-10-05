@@ -2,18 +2,17 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    loadComponent: () =>
+      import('./login/login.component').then((m) => m.LoginComponent),
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.routes'),
   },
   {
     path: '',
     loadChildren: () => import('./vetLink-front/vetLink-front.routes'),
-  },
-
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'contactanos',
@@ -46,19 +45,12 @@ export const routes: Routes = [
         (m) => m.AgendarCitaComponent
       ),
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./cuenta/cuenta.routes'),
-  },
+ 
   {
     path: 'cliente',
     loadComponent: () =>
       import('./cliente/components/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
-  },
-  {
-    path: 'catalogos',
-    loadChildren: () => import('./vetLink-front/catalogos/catalogos.routes'),
   },
 ];

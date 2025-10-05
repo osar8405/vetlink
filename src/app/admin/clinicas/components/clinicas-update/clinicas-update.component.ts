@@ -35,7 +35,7 @@ export class ClinicasUpdateComponent {
   clinicaId = toSignal(this.activatedRoute.params.pipe(
     map(params => params['id'])
   ));
-  isEditMode = !!this.clinicaId;
+  isEditMode = !!this.clinicaId();
   get direccionForm(): FormGroup {
     return this.myForm.get('direccion') as FormGroup;
   }

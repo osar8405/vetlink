@@ -14,9 +14,10 @@ import { tap } from 'rxjs';
 import type { Catalogo } from '../../interfaces/catalogos.iterface';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { CatalogosService } from '../../services/catalogos.service';
+import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 @Component({
   selector: 'app-catalogos-update',
-  imports: [ReactiveFormsModule, NotFoundPageComponent],
+  imports: [ReactiveFormsModule, NotFoundPageComponent, FormErrorLabelComponent],
   templateUrl: './catalogos-update.component.html',
 })
 export class CatalogosUpdateComponent {

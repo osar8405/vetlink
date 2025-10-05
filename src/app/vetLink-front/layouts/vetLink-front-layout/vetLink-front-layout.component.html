@@ -1,6 +1,4 @@
-<!-- component -->
-
-<body class="font-poppins antialiased">
+<body class="font-poppins antialiased min-h-screen">
   <div id="view" class="h-full w-screen flex flex-row" x-data="{ sidenav: true }">
     <button
       class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
@@ -10,7 +8,7 @@
           clip-rule="evenodd"></path>
       </svg>
     </button>
-    <div id="sidebar"
+    <aside id="sidebar"
       class="bg-white h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out"
       x-show="sidenav" >
       <div class="space-y-6 md:space-y-10 mt-10">
@@ -22,11 +20,11 @@
         </h1>
         <div id="profile" class="space-y-3">
           <img
-            src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-            alt="Avatar user" class="w-10 md:w-16 rounded-full mx-auto" />
+            src="/assets/images/veterinaria/simiPet.jpeg"
+            alt="Avatar user" class="w-16 h-16 md:w-24 md:h-24 rounded-full mx-auto object-cover" />
           <div>
             <h2 class="font-medium text-xs md:text-sm text-center text-teal-500">
-              Oscar Mireles
+              Simi Pet
             </h2>
             <p class="text-xs text-gray-500 text-center">Administrador</p>
           </div>
@@ -129,8 +127,8 @@
           </a>
         </div>
       </div>
-    </div>
-    <main class="m-auto flex-grow flex flex-col min-h-screen mt-3 mx-3">
+    </aside>
+    <main class="flex-1 p-3 overflow-y-auto">
       <router-outlet />
       <div class=" flex-1 flex-grow"></div>
     </main>

@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, input } from '@angular/core';
 import { FormUtils } from '@core/utils/form-utils';
 
 @Component({
