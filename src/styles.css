@@ -9,7 +9,7 @@
     default: true;
     prefersdark: true;
   /* --color-primary-content: #5e9496; */
-  --color-base-100: #f0f4f8;
+  /* --color-base-100: #f0f4f8; */
   /* --color-base-content: white; */
  }
  @layer base {

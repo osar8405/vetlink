@@ -1,5 +1,5 @@
-export interface PersonasResponse {
-  response: Persona[];
+export interface ApiResponse<T> {
+  response: T;
   status:   boolean;
   message:  string[];
 }
@@ -18,3 +18,6 @@ export interface Persona {
   numeroIdentificacion: null;
   imagen:               null;
 }
+
+export type PersonasResponse = ApiResponse<Persona[]>;
+export type PersonaResponse = ApiResponse<Persona>;

@@ -5,6 +5,7 @@ import { AppConfig } from '@shared/app-config';
 import type {
   Persona,
   PersonasResponse,
+  PersonaResponse,
 } from '../interfaces/personas.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -17,15 +18,15 @@ export class PersonasService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  obtienePersona(personaId: number): Observable<PersonasResponse> {
+  obtienePersona(personaId: number): Observable<PersonaResponse> {
     return this.http
-      .get<PersonasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Detalles/${personaId}`
+      .get<PersonaResponse>(
+        `${AppConfig.APIREST_URL}api/Persona/Detalles/${personaId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  nuevaPersona(persona: Persona): Observable<PersonasResponse> {
+  nuevaPersona(persona: Partial<Persona>): Observable<PersonasResponse> {
     return this.http
       .post<PersonasResponse>(
         `${AppConfig.APIREST_URL}/api/Administracion/registrar`,
@@ -47,24 +48,10 @@ export class PersonasService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  actualizaPersona(persona: Persona): Observable<PersonasResponse> {
+  actualizaPersona(persona: Partial<Persona>): Observable<PersonasResponse> {
     return this.http
       .put<PersonasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${persona.id}`,
-        {
-          id: 'bd751a2f-0f94-4cee-bbc1-08dde64c1ab3',
-          usuarioId: '7eaa93f9-04b4-40bb-87b7-07c4481b3f52',
-          tipoUsuarioId: null,
-          tipoUsuarioNombre: null,
-          nombre: 'Priscila',
-          primerApellido: 'Tafolla',
-          segundoApellido: 'Astorga',
-          genero: 'Femenino',
-          fechaNacimiento: '1986-03-10T08:00:00.629',
-          email: 'priscilatafolla@gmail.com',
-          numeroIdentificacion: null,
-          imagen: null,
-        }
+        `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${persona.id}`, persona
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

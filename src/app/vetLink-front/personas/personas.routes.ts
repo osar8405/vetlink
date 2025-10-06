@@ -4,15 +4,11 @@ import { PersonasUpdateComponent } from './components/personas-update/personas-u
 
 export const PersonasRoutes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: PersonasListComponent,
   },
   {
-    path: ':id/edit',
-    component: PersonasUpdateComponent,
-  },
-  {
-    path: 'new',
+    path: ':id',
     component: PersonasUpdateComponent,
   },
   {

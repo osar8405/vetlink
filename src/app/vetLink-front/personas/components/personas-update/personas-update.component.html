@@ -1,1 +1,89 @@
-<p>personas-update works!</p>,
+@if (personaResource?.error()) {
+<shared-not-found-page mensaje="{{personaResource?.error()}}" />
+}
+@if (!personaResource?.error()) {
+<div class="min-h-screen flex items-center justify-center">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
+    <h2 class="text-3xl font-bold mb-6">Datos de la persona</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @if (isEditMode) {
+      <div>
+        <label class="label">ID</label>
+        <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
+      </div>
+      }
+
+      <!-- nombre -->
+      <div>
+        <label class="label">Nombre</label>
+        <input type="text" formControlName="nombre" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('nombre')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('nombre')!"></shared-form-error-label>
+      </div>
+
+      <div>
+        <label class="label">Primer apellido</label>
+        <input type="text" formControlName="primerApellido" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('primerApellido')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('primerApellido')!"></shared-form-error-label>
+      </div>
+
+      <div>
+        <label class="label">Segundo apellido</label>
+        <input type="text" formControlName="segundoApellido" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('segundoApellido')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('segundoApellido')!"></shared-form-error-label>
+      </div>
+
+      <!-- TipoNombre -->
+      <div>
+        <label class="label">Tipo nombre</label>
+        <input type="text" formControlName="tipoUsuarioNombre" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('tipoUsuarioNombre')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('tipoUsuarioNombre')!"></shared-form-error-label>
+      </div>
+
+      <!-- Fecha de nacimiento -->
+      <div>
+        <label class="label">Fecha de nacimiento</label>
+        <input type="date" formControlName="fechaNacimiento" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('fechaNacimiento')!"></shared-form-error-label>
+      </div>
+
+      <!-- Numero de identificación -->
+      <div>
+        <label class="label">Número de identificación</label>
+        <input type="text" formControlName="numeroIdentificacion" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('numeroIdentificacion')!"></shared-form-error-label>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="label">Email</label>
+        <input type="text" formControlName="email" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('email')!"></shared-form-error-label>
+      </div>
+
+      <!-- Genero -->
+      <div>
+        <label class="label">Genero</label>
+        <select formControlName="genero" class="select select-bordered w-full">
+          <option value="" selected>Selecciona un genero</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+        </select>
+        <shared-form-error-label [control]="myForm.get('numeroIdentificacion')!"></shared-form-error-label>
+      </div>
+
+
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end mt-8 gap-4">
+      <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+}
