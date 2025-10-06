@@ -5,10 +5,11 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoginComponent } from "./cuenta/login/login.component";
 import { Router, NavigationEnd } from '@angular/router';
 import { AlertComponent } from "./shared/components/alert/alert.component";
+import { LoadingComponent } from '@shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AlertComponent],
+  imports: [RouterOutlet, AlertComponent, LoadingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
