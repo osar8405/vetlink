@@ -33,7 +33,8 @@
             <div class="flex items-center gap-3">
               <div class="avatar">
                 <div class="mask mask-squircle h-12 w-12">
-                  <img src="/assets/images/veterinaria/clinica.jpg" [alt]="clinica.nombreClinica" class="object-contain " />
+                  <img src="/assets/images/veterinaria/clinica.jpg" [alt]="clinica.nombreClinica"
+                    class="object-contain " />
                   <!-- <img src="/assets/images/veterinaria/clinica.jpg" alt="Veterinaria" class="object-cover w-full h-full" /> -->
                 </div>
               </div>
@@ -50,10 +51,10 @@
           </td>
           <td>{{clinica.activo ? 'Activo' : 'Inactivo'}}</td>
           <th>
-            <button class="btn btn-primary btn-xs" [routerLink]="[`/admin/clinicas/${clinica.id}/edit`]">Editar</button>
+            <icon-edit [routerLink]="[`/admin/clinicas/${clinica.id}/edit`]" />
           </th>
           <th>
-            <button class="btn btn-secondary btn-xs" (click)="abrirModal(clinica.id)">Eliminar</button>
+            <icon-delete (click)="abrirModal(clinica.id)" />
           </th>
         </tr>
         }

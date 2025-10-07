@@ -11,6 +11,8 @@ import { IconAddComponent } from '@shared/icons/icon-add/icon-add.component';
 import { RouterLink } from '@angular/router';
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { IconEditComponent } from "@shared/icons/icon-edit/icon-edit.component";
+import { IconDeleteComponent } from "@shared/icons/icon-delete/icon-delete.component";
 @Component({
   selector: 'app-clinicas-list',
   imports: [
@@ -18,7 +20,9 @@ import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-
     IconAddComponent,
     RouterLink,
     ConfirmModalComponent,
-  ],
+    IconEditComponent,
+    IconDeleteComponent
+],
   templateUrl: './clinicas-list.component.html',
 })
 export class ClinicasListComponent {
