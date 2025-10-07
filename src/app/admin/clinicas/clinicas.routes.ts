@@ -4,15 +4,11 @@ import { ClinicasUpdateComponent } from './components/clinicas-update/clinicas-u
 
 export const ClinicasRoutes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: ClinicasListComponent,
   },
   {
-    path: ':id/edit',
-    component: ClinicasUpdateComponent,
-  },
-  {
-    path: 'new',
+    path: ':id',
     component: ClinicasUpdateComponent,
   },
   {

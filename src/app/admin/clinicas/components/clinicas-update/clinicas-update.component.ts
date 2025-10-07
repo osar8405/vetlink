@@ -18,7 +18,11 @@ import { NotificacionService } from '@shared/services/notificacion.service';
 import { FormErrorLabelComponent } from "@shared/components/form-error-label/form-error-label.component";
 @Component({
   selector: 'app-clinicas-update',
-  imports: [NotFoundPageComponent, ReactiveFormsModule, FormErrorLabelComponent],
+  imports: [
+    NotFoundPageComponent,
+    ReactiveFormsModule,
+    FormErrorLabelComponent,
+  ],
   templateUrl: './clinicas-update.component.html',
 })
 export class ClinicasUpdateComponent {
@@ -31,30 +35,20 @@ export class ClinicasUpdateComponent {
   formUtils = FormUtils;
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
-  // clinicaId = this.route.snapshot.params['id'];
-  clinicaId = toSignal(this.activatedRoute.params.pipe(
-    map(params => params['id'])
-  ));
-  isEditMode = !!this.clinicaId();
+  clinicaId = toSignal(
+    this.activatedRoute.params.pipe(map((params) => params['id']))
+  );
+  isEditMode = this.clinicaId() === 'new' ? false : true;
   get direccionForm(): FormGroup {
     return this.myForm.get('direccion') as FormGroup;
   }
   myForm: FormGroup = this.fb.group({
     id: [0],
     nombreClinica: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    telefono: ['', Validators.required],
+    logo: ['', [Validators.required]],
+    sitioWeb: ['', Validators.required],
     activo: [true],
     suscripcionId: [0],
-    direccion: this.fb.group({
-      calle: ['', Validators.required],
-      noInt: [''],
-      noExt: ['', Validators.required],
-      colonia: ['', Validators.required],
-      municipio: ['', Validators.required],
-      estado: ['', Validators.required],
-      cp: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-    }),
   });
 
   clinicaResource = this.isEditMode
@@ -86,19 +80,10 @@ export class ClinicasUpdateComponent {
     this.myForm.patchValue({
       id: clinica.id,
       nombreClinica: clinica.nombreClinica,
-      email: clinica.email,
-      telefono: clinica.telefono,
+      logo: clinica.logo,
+      sitioWeb: clinica.sitioWeb,
       activo: clinica.activo,
       suscripcionId: clinica.suscripcionId,
-      direccion: {
-        calle: clinica.direccion.calle,
-        noInt: clinica.direccion.noInt,
-        noExt: clinica.direccion.noExt,
-        colonia: clinica.direccion.colonia,
-        municipio: clinica.direccion.municipio,
-        estado: clinica.direccion.estado,
-        cp: clinica.direccion.cp,
-      },
     });
   }
 

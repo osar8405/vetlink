@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { PersonasService } from '../../services/personas.service';
 import { catchError, map, of } from 'rxjs';
@@ -6,7 +6,8 @@ import { IconRefreshComponent } from '@shared/icons/icon-refresh/icon-refresh.co
 import { IconAddComponent } from '@shared/icons/icon-add/icon-add.component';
 import { RouterLink } from '@angular/router';
 import { NotificacionService } from '@shared/services/notificacion.service';
-import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { IconDeleteComponent } from '@shared/icons/icon-delete/icon-delete.component';
+import { IconEditComponent } from '@shared/icons/icon-edit/icon-edit.component';
 
 @Component({
   selector: 'app-personas-list',
@@ -14,16 +15,14 @@ import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-
     IconRefreshComponent,
     IconAddComponent,
     RouterLink,
-    ConfirmModalComponent,
+    IconDeleteComponent,
+    IconEditComponent,
   ],
   templateUrl: './personas-list.component.html',
 })
 export class PersonasListComponent {
   personasService = inject(PersonasService);
   notificacion = inject(NotificacionService);
-  mensajeEliminar = '';
-  @ViewChild('deleteModal') deleteModal!: ConfirmModalComponent;
-  personaId: string = '0';
 
   personasResource = rxResource({
     loader: () => {
@@ -44,19 +43,13 @@ export class PersonasListComponent {
     this.personasResource.reload();
   }
 
-  abrirModal(personaId: string) {
-    this.personaId = personaId;
-    this.mensajeEliminar = `¿Está seguro de eliminar el registro ${personaId}? Esta acción no se puede deshacer.`;
-    this.deleteModal.show();
-  }
-
-  eliminaPersona() {
-    this.personasService.eliminaPersona(this.personaId).subscribe({
+  eliminaRegistro(registroId: string) {
+    this.personasService.eliminaPersona(registroId).subscribe({
       next: (data) => {
         if (data.status) {
           this.notificacion.show('Persona eliminada correctamente', 'success');
           this.personasResource.update((personas) => {
-            return personas?.filter((persona) => persona.id !== this.personaId);
+            return personas?.filter((persona) => persona.id !== registroId);
           });
         }
       },

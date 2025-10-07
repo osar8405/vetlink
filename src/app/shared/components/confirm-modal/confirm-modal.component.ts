@@ -5,9 +5,9 @@ import { Component, ElementRef, input, output, ViewChild } from '@angular/core';
   imports: [],
   templateUrl: './confirm-modal.component.html',
 })
-export class ConfirmModalComponent { 
+export class ConfirmModalComponent {
   titulo = input<string>('Confirmación');
-  mensaje = input<string>('¿Estás seguro de que deseas continuar?');
+  mensaje = input<string>('¿Está seguro de que desea continuar?');
   mensajeAceptar = input<string>('');
   confirmar = output<void>();
   cancelar = output<void>();

@@ -1,28 +1,28 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { TipoUsuarioService } from '../../services/tipoUsuario.service';
 import { catchError, map, of } from 'rxjs';
-import { IconRefreshComponent } from '@shared/icons/icon-refresh/icon-refresh.component';
 import { IconAddComponent } from '@shared/icons/icon-add/icon-add.component';
-import { RouterLink } from '@angular/router';
+import { IconDeleteComponent } from '@shared/icons/icon-delete/icon-delete.component';
+import { IconEditComponent } from '@shared/icons/icon-edit/icon-edit.component';
+import { IconRefreshComponent } from '@shared/icons/icon-refresh/icon-refresh.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
-import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { RouterLink } from '@angular/router';
+import { TipoUsuarioService } from '../../services/tipoUsuario.service';
+
 @Component({
   selector: 'app-tipo-usuario-list.component.ts',
   imports: [
     IconRefreshComponent,
     IconAddComponent,
     RouterLink,
-    ConfirmModalComponent,
+    IconDeleteComponent,
+    IconEditComponent,
   ],
   templateUrl: './tipoUsuario-list.component.html',
 })
 export class TipoUsuarioListComponent {
   tipoUsuarioService = inject(TipoUsuarioService);
   notificacion = inject(NotificacionService);
-  mensajeEliminar = '';
-  @ViewChild('deleteModal') deleteModal!: ConfirmModalComponent;
-  tipoUsuarioId: number = 0;
 
   tipoUsuariosResource = rxResource({
     loader: () => {
@@ -43,20 +43,14 @@ export class TipoUsuarioListComponent {
     this.tipoUsuariosResource.reload();
   }
 
-  abrirModal(tipoUsuarioId: number) {
-    this.tipoUsuarioId = tipoUsuarioId;
-    this.mensajeEliminar = `¿Está seguro de eliminar el registro ${tipoUsuarioId}? Esta acción no se puede deshacer.`;
-    this.deleteModal.show();
-  }
-
-  eliminaTipoUsuario() {
-    this.tipoUsuarioService.eliminaTipoUsuario(this.tipoUsuarioId).subscribe({
+  eliminaRegistro(registroId: number) {
+    this.tipoUsuarioService.eliminaTipoUsuario(registroId).subscribe({
       next: (data) => {
         if (data.status) {
           this.notificacion.show('Registro eliminado correctamente', 'success');
           this.tipoUsuariosResource.update((tipoUsuarios) => {
             return tipoUsuarios?.filter(
-              (tipoUsuario) => tipoUsuario.id !== this.tipoUsuarioId
+              (tipoUsuario) => tipoUsuario.id !== registroId
             );
           });
         }

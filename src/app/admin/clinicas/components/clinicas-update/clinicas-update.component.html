@@ -12,7 +12,12 @@
         <label class="label">ID</label>
         <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
       </div>
-      <div></div>
+
+      <!-- Estatus -->
+      <div>
+        <label class="label w-full">Estatus</label>
+        <input type="checkbox" formControlName="activo" class="toggle toggle-primary " />
+      </div>
       }
 
       <!-- nombreClinica -->
@@ -23,67 +28,18 @@
         <shared-form-error-label [control]="myForm.get('nombreClinica')!"></shared-form-error-label>
       </div>
 
-      <!-- email -->
+      <!-- logo -->
       <div>
-        <label class="label">Email</label>
-        <input type="email" formControlName="email" class="input input-bordered w-full" />
-        <shared-form-error-label [control]="myForm.get('email')!"></shared-form-error-label>
+        <label class="label">Logo</label>
+        <input type="email" formControlName="logo" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('logo')!"></shared-form-error-label>
       </div>
 
-      <!-- telefono -->
+      <!-- sitioWeb -->
       <div>
-        <label class="label">Teléfono</label>
-        <input type="text" formControlName="telefono" class="input input-bordered w-full" />
-        <shared-form-error-label [control]="myForm.get('telefono')!"></shared-form-error-label>
-      </div>
-
-
-    </div>
-
-    <!-- Sección Dirección -->
-    <div formGroupName="direccion" class="mt-10">
-      <h3 class="text-2xl font-semibold mb-4">Dirección</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="label">Calle</label>
-          <input type="text" formControlName="calle" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('calle')!"></shared-form-error-label>
-        </div>
-
-        <div>
-          <label class="label">Colonia</label>
-          <input type="text" formControlName="colonia" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('colonia')!"></shared-form-error-label>
-        </div>
-
-        <div>
-          <label class="label">No. Exterior</label>
-          <input type="text" formControlName="noExt" class="input input-bordered w-full" />
-        </div>
-
-        <div>
-          <label class="label">No. Interior</label>
-          <input type="text" formControlName="noInt" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('noInt')!"></shared-form-error-label>
-        </div>
-
-        <div>
-          <label class="label">Municipio</label>
-          <input type="text" formControlName="municipio" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('municipio')!"></shared-form-error-label>
-        </div>
-
-        <div>
-          <label class="label">Estado</label>
-          <input type="text" formControlName="estado" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('estado')!"></shared-form-error-label>
-        </div>
-
-        <div>
-          <label class="label">Código Postal</label>
-          <input type="text" formControlName="cp" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="direccionForm.get('cp')!"></shared-form-error-label>
-        </div>
+        <label class="label">Sitio Web</label>
+        <input type="text" formControlName="sitioWeb" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('sitioWeb')!"></shared-form-error-label>
       </div>
     </div>
 

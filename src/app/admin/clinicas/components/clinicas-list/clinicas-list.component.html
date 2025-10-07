@@ -19,10 +19,10 @@
         <tr>
           <th>Id</th>
           <th>Clinica</th>
-          <th>Dirección</th>
-          <th>Dirección</th>
+          <th>Subscripción</th>
           <th>Estatus</th>
-          <th></th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -40,21 +40,20 @@
               </div>
               <div>
                 <div class="font-bold">{{clinica.nombreClinica}}</div>
-                <div class="text-sm opacity-50">Tel: {{clinica.telefono}}</div>
               </div>
             </div>
           </td>
           <td>
-            {{clinica.direccion.calle}}
-            <br />
-            <span class="badge badge-ghost badge-sm">{{clinica.direccion.municipio}}</span>
+            {{clinica.suscripcionId}}
+            <!-- <br />
+            <span class="badge badge-ghost badge-sm">{{clinica.direccion.municipio}}</span> -->
           </td>
           <td>{{clinica.activo ? 'Activo' : 'Inactivo'}}</td>
           <th>
-            <icon-edit [routerLink]="[`/admin/clinicas/${clinica.id}/edit`]" />
+            <icon-edit [routerLink]="[`/admin/clinicas/${clinica.id}`]" />
           </th>
           <th>
-            <icon-delete (click)="abrirModal(clinica.id)" />
+            <icon-delete [registroId]="clinica.id" (confirmar)="eliminaRegistro(clinica.id)" />
           </th>
         </tr>
         }
@@ -62,6 +61,3 @@
     </table>
   </div>
 </div>
-
-<shared-confirm-modal #deleteModal titulo="¡Confirmar Eliminación!" mensajeAceptar="Si, Eliminar"
-  mensaje="{{mensajeEliminar}}" (confirmar)="eliminaClinica()" (cancelar)="clinicaId = 0" />

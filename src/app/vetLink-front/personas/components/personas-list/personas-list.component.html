@@ -21,7 +21,8 @@
           <th>Tipo</th>
           <th>Email</th>
           <th>Estatus</th>
-          <th></th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -31,8 +32,7 @@
             <div class="flex items-center gap-3">
               <div class="avatar">
                 <div class="mask mask-squircle h-12 w-12">
-                  <img [src]="persona.imagen" [alt]="persona.nombre"
-                    class="object-cover w-full h-full " />
+                  <img [src]="persona.imagen" [alt]="persona.nombre" class="object-cover w-full h-full " />
                 </div>
               </div>
               <div>
@@ -51,10 +51,10 @@
           </td>
           <td>Activo</td>
           <th>
-            <button class="btn btn-primary btn-xs" [routerLink]="[`/personas/${persona.id}`]">Editar</button>
+            <icon-edit [routerLink]="[`/personas/${persona.id}`]" />
           </th>
           <th>
-            <button class="btn btn-error btn-xs" (click)="abrirModal(persona.id)">Eliminar</button>
+            <icon-delete [registroId]="persona.id" (confirmar)="eliminaRegistro(persona.id)" />
           </th>
         </tr>
         }
@@ -62,6 +62,3 @@
     </table>
   </div>
 </div>
-
-<shared-confirm-modal #deleteModal titulo="¡Confirmar Eliminación!" mensajeAceptar="Si, Eliminar"
-  mensaje="{{mensajeEliminar}}" (confirmar)="eliminaPersona()" (cancelar)="personaId = '0'" />

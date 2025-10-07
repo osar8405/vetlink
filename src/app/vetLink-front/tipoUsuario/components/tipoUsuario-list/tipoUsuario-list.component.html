@@ -19,7 +19,8 @@
         <tr>
           <th>Id</th>
           <th>Tipo usuario</th>
-          <th></th>
+          <th>Editar</th>
+          <th>Elimiar</th>
         </tr>
       </thead>
       <tbody>
@@ -34,10 +35,10 @@
             </div>
           </td>
           <th>
-            <button class="btn btn-primary btn-xs" [routerLink]="[`/tipo-usuario/${tipoUsuario.id}`]">Editar</button>
+            <icon-edit [routerLink]="[`/tipo-usuario/${tipoUsuario.id}`]" />
           </th>
           <th>
-            <button class="btn btn-secondary btn-xs" (click)="abrirModal(tipoUsuario.id)">Eliminar</button>
+            <icon-delete [registroId]="tipoUsuario.id" (confirmar)="eliminaRegistro(tipoUsuario.id)" />
           </th>
         </tr>
         }
@@ -45,6 +46,3 @@
     </table>
   </div>
 </div>
-
-<shared-confirm-modal #deleteModal titulo="¡Confirmar Eliminación!" mensajeAceptar="Si, Eliminar"
-  mensaje="{{mensajeEliminar}}" (confirmar)="eliminaTipoUsuario()" (cancelar)="tipoUsuarioId = 0" />
