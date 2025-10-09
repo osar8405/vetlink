@@ -13,7 +13,7 @@ export const PersonasRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'list',
+    redirectTo: '',
   },
 ];
 

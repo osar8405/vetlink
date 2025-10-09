@@ -1,7 +1,6 @@
-import { Routes } from "@angular/router";
-import { VetLinkFrontLayoutComponent } from "./layouts/vetLink-front-layout/vetLink-front-layout.component";
-import { HomePageComponent } from "./pages/home-page/home-page.component";
-
+import { Routes } from '@angular/router';
+import { VetLinkFrontLayoutComponent } from './layouts/vetLink-front-layout/vetLink-front-layout.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 export const vetLinkFrontRoutes: Routes = [
   {
@@ -10,7 +9,7 @@ export const vetLinkFrontRoutes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: HomePageComponent
+        component: HomePageComponent,
       },
       {
         path: 'personas',
@@ -21,11 +20,16 @@ export const vetLinkFrontRoutes: Routes = [
         loadChildren: () =>
           import('../vetLink-front/tipoUsuario/tipoUsuario.routes'),
       },
+      {
+        path: 'veterinarios',
+        loadChildren: () =>
+          import('../vetLink-front/veterinarios/veterinarios.routes'),
+      },
     ],
   },
   {
     path: '**',
     redirectTo: '',
-  }
+  },
 ];
 export default vetLinkFrontRoutes;

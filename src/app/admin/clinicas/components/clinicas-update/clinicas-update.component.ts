@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { map, subscribeOn, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
 import { FormUtils } from '@core/utils/form-utils';
@@ -39,9 +39,6 @@ export class ClinicasUpdateComponent {
     this.activatedRoute.params.pipe(map((params) => params['id']))
   );
   isEditMode = this.clinicaId() === 'new' ? false : true;
-  get direccionForm(): FormGroup {
-    return this.myForm.get('direccion') as FormGroup;
-  }
   myForm: FormGroup = this.fb.group({
     id: [0],
     nombreClinica: ['', Validators.required],
