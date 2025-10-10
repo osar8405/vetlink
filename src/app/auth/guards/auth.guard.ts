@@ -9,8 +9,9 @@ export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const notificacion = inject(NotificacionService);
 
   const user = authService.getUserData();
+  console.log("user: ", user);
   if (!user) {
-    router.navigate(['/login']);
+    router.navigate(['/auth/login']);
     return false;
   }
 
@@ -24,7 +25,7 @@ export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
         'No tienes permiso para acceder a esa sección.',
         'error'
       );
-      router.navigate(['/dashboard']);
+      // router.navigate(['/dashboard']);
       return false;
     }
   }

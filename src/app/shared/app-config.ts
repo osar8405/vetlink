@@ -6,7 +6,7 @@ export class AppConfig {
   public static APIREST_URL: string = environment.apiUrl;
 
   public static handleErrors(error: HttpErrorResponse) {
-    console.log(JSON.stringify(error));
+    console.log("handleError: ", JSON.stringify(error));
     return throwError(() => new Error(error.message));
   }
 }

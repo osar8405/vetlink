@@ -31,6 +31,7 @@ export class ClinicasListComponent {
       return this.clinicasService.obtieneClinicas().pipe(
         map((resp) => resp.response),
         catchError((error) => {
+          console.log("Error: ", error);
           this.notificacion.show(
             'Ocurrio un error al cargar la lista de clinicas.',
             'error'

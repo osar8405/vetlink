@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { AppConfig } from '@shared/app-config';
-import { AcercaComponent } from '../../../acerca/acerca.component';
 import type {
   Clinica,
   ClinicasResponse,

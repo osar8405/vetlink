@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./vetLink-front/vetLink-front.routes'),
+    canActivate: [AuthGuard],
   },
   {
     path: 'contactanos',
@@ -44,7 +46,7 @@ export const routes: Routes = [
         (m) => m.AgendarCitaComponent
       ),
   },
- 
+
   {
     path: 'cliente',
     loadComponent: () =>

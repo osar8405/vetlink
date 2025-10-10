@@ -18,6 +18,7 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
   if (token && auth.isTokenExpiredOrCloseToExpiry(token)) {
     return auth.renewToken().pipe(
       switchMap(() => {
+        console.log("mi token: ", token);
         const newToken = auth.getToken();
         const authReq = req.clone({
           setHeaders: { Authorization: `Bearer ${newToken}` },
@@ -27,7 +28,7 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
       catchError((renewError) => {
         console.error('Renewal failed, logging out', renewError);
         auth.logOut();
-        router.navigate(['/login'], { queryParams: { sessionExpired: true } });
+        router.navigate(['/auth/login'], { queryParams: { sessionExpired: true } });
         return throwError(() => renewError);
       })
     );

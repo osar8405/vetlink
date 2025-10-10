@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { VetLinkFrontLayoutComponent } from './layouts/vetLink-front-layout/vetLink-front-layout.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 export const vetLinkFrontRoutes: Routes = [
   {
@@ -14,11 +15,13 @@ export const vetLinkFrontRoutes: Routes = [
       {
         path: 'personas',
         loadChildren: () => import('./features/personas/personas.routes'),
+        canActivate: [AuthGuard],
       },
       {
         path: 'tipo-usuario',
         loadChildren: () =>
           import('./features/tipoUsuario/tipoUsuario.routes'),
+        canActivate: [AuthGuard],
       },
       {
         path: 'veterinarios',
