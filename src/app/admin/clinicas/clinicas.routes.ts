@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ClinicasListComponent } from './components/clinicas-list/clinicas-list.component';
-import { ClinicasUpdateComponent } from './components/clinicas-update/clinicas-update.component';
+import { ClinicasListComponent } from './pages/clinicas-list/clinicas-list.component';
+import { ClinicasUpdateComponent } from './pages/clinicas-update/clinicas-update.component';
 
 export const ClinicasRoutes: Routes = [
   {

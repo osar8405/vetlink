@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth/guards/auth.guard';
-import { CatalogosListComponent } from './components/catalogos-list/catalogos-list.component';
-import { CatalogosUpdateComponent } from './components/catalogos-update/catalogos-update.component';
+import { CatalogosListComponent } from './pages/catalogos-list/catalogos-list.component';
+import { CatalogosUpdateComponent } from './pages/catalogos-update/catalogos-update.component';
 
 export const CatalogosRoutes: Routes = [
   {

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { PersonasListComponent } from './components/personas-list/personas-list.component';
-import { PersonasUpdateComponent } from './components/personas-update/personas-update.component';
+import { PersonasListComponent } from './pages/personas-list/personas-list.component';
+import { PersonasUpdateComponent } from './pages/personas-update/personas-update.component';
 
 export const PersonasRoutes: Routes = [
   {

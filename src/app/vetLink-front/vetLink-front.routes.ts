@@ -13,17 +13,17 @@ export const vetLinkFrontRoutes: Routes = [
       },
       {
         path: 'personas',
-        loadChildren: () => import('../vetLink-front/personas/personas.routes'),
+        loadChildren: () => import('./features/personas/personas.routes'),
       },
       {
         path: 'tipo-usuario',
         loadChildren: () =>
-          import('../vetLink-front/tipoUsuario/tipoUsuario.routes'),
+          import('./features/tipoUsuario/tipoUsuario.routes'),
       },
       {
         path: 'veterinarios',
         loadChildren: () =>
-          import('../vetLink-front/veterinarios/veterinarios.routes'),
+          import('../admin-clinicas/features/veterinarios/veterinarios.routes'),
       },
     ],
   },

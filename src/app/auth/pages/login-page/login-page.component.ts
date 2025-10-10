@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from 'src/app/auth/interceptor/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { FormUtils } from '@core/utils/form-utils';
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { ActivatedRoute } from '@angular/router';
