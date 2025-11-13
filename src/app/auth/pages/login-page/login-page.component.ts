@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [ReactiveFormsModule, FormsModule, RouterLink],
   templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent { 
+export class LoginPageComponent {
   authService = inject(AuthService);
   router = inject(Router);
   fb = inject(FormBuilder);
@@ -56,6 +56,7 @@ export class LoginPageComponent {
     this.loading = true;
     this.authService.login(this.myForm.value).subscribe({
       next: (data) => {
+        console.log(data);
         if (data.status) {
           this.router.navigateByUrl('/dashboard');
         } else {

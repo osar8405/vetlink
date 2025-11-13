@@ -20,7 +20,7 @@ export class ClinicasService {
   obtieneClinica(hotelId: number): Observable<ClinicasResponse> {
     return this.http
       .get<ClinicasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Detalles/${hotelId}`
+        `${AppConfig.APIREST_URL}api/Clinica/Detalles/${hotelId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

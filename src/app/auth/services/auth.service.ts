@@ -24,8 +24,9 @@ export class AuthService {
       })
       .pipe(
         tap((resp) => {
-          localStorage.setItem('authToken', resp.response.token.result);
-          this.tokenSub.next(resp.response.token.result);
+          console.log("resp: ", resp);
+          localStorage.setItem('authToken', resp.response.token);
+          this.tokenSub.next(resp.response.token);
         })
       );
   }
@@ -54,8 +55,8 @@ export class AuthService {
       })
       .pipe(
         tap((resp) => {
-          localStorage.setItem('authToken', resp.response.token.result);
-          this.tokenSub.next(resp.response.token.result);
+          localStorage.setItem('authToken', resp.response.token);
+          this.tokenSub.next(resp.response.token);
           console.log('Token renovado: ', resp.response.token);
         })
       );

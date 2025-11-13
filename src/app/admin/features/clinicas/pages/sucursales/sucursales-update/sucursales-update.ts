@@ -11,24 +11,22 @@ import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
 import { FormUtils } from '@core/utils/form-utils';
-import type { Clinica } from '../../interfaces/clinicas.interface';
-import { ClinicasService } from '../../services/clinicas.service';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
-import { FormErrorLabelComponent } from "@shared/components/form-error-label/form-error-label.component";
-import { Sucursal } from '../../interfaces/sucursales.interface';
-import { SucursalesService } from '../../services/sucursales.service';
+import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
+import { Sucursal } from '../../../interfaces/sucursales.interface';
+import { SucursalesService } from '../../../services/sucursales.service';
+
 @Component({
-  selector: 'app-clinicas-update',
+  selector: 'app-sucursales-update',
   imports: [
     NotFoundPageComponent,
     ReactiveFormsModule,
     FormErrorLabelComponent,
   ],
-  templateUrl: './clinicas-update.component.html',
+  templateUrl: './sucursales-update.html',
 })
-export class ClinicasUpdateComponent {
-  clinicasService = inject(ClinicasService);
+export class SucursalesUpdate {
   sucursalesService = inject(SucursalesService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
@@ -38,10 +36,10 @@ export class ClinicasUpdateComponent {
   formUtils = FormUtils;
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
-  clinicaId = toSignal(
+  sucursalId = toSignal(
     this.activatedRoute.params.pipe(map((params) => params['id']))
   );
-  isEditMode = this.clinicaId() === 'new' ? false : true;
+  isEditMode = this.sucursalId() === 'new' ? false : true;
   myForm: FormGroup = this.fb.group({
     id: [0],
     nombreClinica: ['', Validators.required],
@@ -51,10 +49,10 @@ export class ClinicasUpdateComponent {
     suscripcionId: [0],
   });
 
-  clinicaResource = this.isEditMode
+  sucursalResource = this.isEditMode
     ? rxResource({
         loader: () => {
-          return this.clinicasService.obtieneClinica(this.clinicaId()).pipe(
+          return this.sucursalesService.obtieneSucursalPorId(this.sucursalId()).pipe(
             tap((resp) => {
               if (!resp.status) {
                 throw new Error(resp.message?.[0] || 'Error desconocido');
@@ -66,28 +64,14 @@ export class ClinicasUpdateComponent {
     : null;
 
   constructor() {
-    if (this.isEditMode && this.clinicaResource) {
+    if (this.isEditMode && this.sucursalResource) {
       effect(() => {
-        const data = this.clinicaResource!.value();
+        const data = this.sucursalResource!.value();
         if (data?.status) {
           this.llenaFormulario(data.response);
         }
       });
     }
-
-    // Nuevo efecto: al seleccionar sucursal, traer datos
-    effect(() => {
-      const id = this.sucursalSeleccionadaId();
-      if (id) {
-        this.sucursalesService.obtieneSucursalPorId(id).subscribe({
-          next: (data) => {
-            if (data.status) {
-              this.sucursalSeleccionada.set(data.response);
-            }
-          },
-        });
-      }
-    });
   }
 
   private llenaFormulario(clinica: any): void {
@@ -149,7 +133,7 @@ export class ClinicasUpdateComponent {
         Date.now()
       ).substring(0, 10)}`;
       const file: File = this.myForm.controls['imagen'].value;
-      this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
+      this.cdnService.uploadFile('sucursal', nombreImagen, file).subscribe({
         next: (data) => {
           this.myForm.patchValue({
             url: data.response,
@@ -157,30 +141,30 @@ export class ClinicasUpdateComponent {
         },
         error: (e) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
+            'Ocurrio un error al cargar la foto de la sucursal, favor de intentarlo nuevamente',
             'error'
           );
         },
         complete: () => {
-          this.registraClinica();
+          this.registraSucursal();
         },
       });
     } else {
-      this.registraClinica();
+      this.registraSucursal();
     }
   }
 
-  registraClinica() {
+  registraSucursal() {
     const request$ = this.isEditMode
-      ? this.clinicasService.actualizaClinica(this.myForm.value)
-      : this.clinicasService.nuevaClinica(this.myForm.value);
+      ? this.sucursalesService.actualizaSucursal(this.myForm.value)
+      : this.sucursalesService.nuevaSucursal(this.myForm.value);
     request$.subscribe({
       next: (data) => {
         if (data.status) {
           this.notificacion.show(
             this.isEditMode
-              ? 'Clinica actualizada correctamente.'
-              : 'Clinica guardada correctamente.',
+              ? 'Sucursal actualizada correctamente.'
+              : 'Sucursal guardada correctamente.',
             'success'
           );
           this.location.back();
@@ -191,8 +175,8 @@ export class ClinicasUpdateComponent {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrio un error al actualizar la clinica, favor de intentarlo nuevamente'
-            : 'Ocurrio un error a guardar la clinica, favor de intentarlo nuevamente',
+            ? 'Ocurrio un error al actualizar la sucursal, favor de intentarlo nuevamente'
+            : 'Ocurrio un error a guardar la sucursal, favor de intentarlo nuevamente',
           'error'
         );
       },
@@ -201,25 +185,5 @@ export class ClinicasUpdateComponent {
 
   goBack() {
     this.location.back();
-  }
-
-  sucursales = signal<Sucursal[]>([]);
-  sucursalSeleccionadaId = signal<number | null>(null);
-  sucursalSeleccionada = signal<Sucursal | null>(null);
-
-  // Recurso para obtener sucursales
-  sucursalesResource = rxResource({
-    loader: () =>
-      this.sucursalesService.obtieneSucursales(Number(this.clinicaId())).pipe(
-        tap((resp) => {
-          console.log('Respuesta de sucursales: ', resp.response);
-          if (resp.status) this.sucursales.set(resp.response);
-        })
-      ),
-  });
-
-  onSucursalChange(event: Event) {
-    const select = event.target as HTMLSelectElement;
-    this.sucursalSeleccionadaId.set(Number(select.value));
   }
 }

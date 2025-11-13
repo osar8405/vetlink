@@ -1,10 +1,10 @@
-@if (clinicaResource?.error()) {
-<shared-not-found-page mensaje="{{clinicaResource?.error()}}" />
+@if (sucursalResource?.error()) {
+<shared-not-found-page mensaje="{{sucursalResource?.error()}}" />
 }
-@if (!clinicaResource?.error()) {
+@if (!sucursalResource?.error()) {
 <div class="min-h-screen flex items-center justify-center">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
-    <h2 class="text-3xl font-bold mb-6">Datos de la clínica</h2>
+    <h2 class="text-3xl font-bold mb-6">Datos de la sucursal</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       @if (isEditMode) {
@@ -43,43 +43,11 @@
       </div>
     </div>
 
-    <!-- 🔽 Selector de sucursales -->
-    <div class="mt-6">
-      <label class="label">Sucursales</label>
-      <select class="select select-bordered w-full" (change)="onSucursalChange($event)">
-        <option value="">Selecciona una sucursal</option>
-        @for (sucursal of sucursales(); track sucursal.id) {
-        <option [value]="sucursal.id">{{ sucursal.nombreSucursal }}</option>
-        }
-      </select>
-    </div>
-
-    <!-- 📍 Datos de la sucursal seleccionada -->
-    @if (sucursalSeleccionada()) {
-    <div class="mt-6 border rounded-xl p-4 bg-base-200">
-      <h3 class="text-xl font-semibold mb-3">
-        {{ sucursalSeleccionada()?.nombreSucursal }}
-      </h3>
-
-      <p><strong>Dirección:</strong> {{ sucursalSeleccionada()?.direccion?.calle }} {{
-        sucursalSeleccionada()?.direccion?.noExt }}</p>
-      <p><strong>Teléfono:</strong> {{ sucursalSeleccionada()?.telefono }}</p>
-      <p><strong>Email:</strong> {{ sucursalSeleccionada()?.email }}</p>
-      <p><strong>Horario:</strong> {{ sucursalSeleccionada()?.horario }}</p>
-
-      @if (sucursalSeleccionada()?.fotoSucursal) {
-      <div class="mt-4">
-        <img [src]="sucursalSeleccionada()?.fotoSucursal" alt="Foto sucursal" class="rounded-lg shadow w-full max-w-sm" />
-      </div>
-      }
-    </div>
-    }
-
     <!-- Botones -->
     <div class="flex justify-end mt-8 gap-4">
       <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
       <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
-  </form>
-</div>
-}
+    </form>
+    </div>
+    }
