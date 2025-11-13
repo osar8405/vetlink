@@ -48,7 +48,6 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     this.vista() === 1 ? this.forgotPassword() : this.resetPassword();
-    // this.resetPassword();
   }
 
   forgotPassword() {
