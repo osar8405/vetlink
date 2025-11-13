@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { AppConfig } from '@shared/app-config';
-import type { Login } from '../interfaces/auth.interface';
+import type { ForgotPassword, Login } from '../interfaces/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiBase = `${AppConfig.APIREST_URL}/api/Auth`;
+  private apiBase = `${AppConfig.APIREST_URL}api/Auth`;
   private tokenSub = new BehaviorSubject<string | null>(null);
   token$ = this.tokenSub.asObservable();
 
@@ -24,7 +24,7 @@ export class AuthService {
       })
       .pipe(
         tap((resp) => {
-          console.log("resp: ", resp);
+          console.log('resp: ', resp);
           localStorage.setItem('authToken', resp.response.token);
           this.tokenSub.next(resp.response.token);
         })
@@ -76,6 +76,18 @@ export class AuthService {
       console.error('Error al decodificar el token:', error);
       return null;
     }
+  }
+
+  sendForgotPassword(email: string): Observable<ForgotPassword> {
+    return this.http
+      .post<ForgotPassword>(`${this.apiBase}/forgotpassword`, { email })
+      .pipe(catchError(AppConfig.handleErrors));
+  }
+
+  resetPassword(email: string, token: string, newPassword: string): Observable<ForgotPassword> {
+    return this.http
+      .post<ForgotPassword>(`${this.apiBase}/resetpassword`, { email, token, newPassword })
+      .pipe(catchError(AppConfig.handleErrors));
   }
 
   logOut() {
