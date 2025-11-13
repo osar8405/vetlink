@@ -47,8 +47,8 @@ export class ResetPasswordComponent {
   }
 
   onSubmit() {
-    // this.vista() === 1 ? this.forgotPassword() : this.resetPassword();
-    this.resetPassword();
+    this.vista() === 1 ? this.forgotPassword() : this.resetPassword();
+    // this.resetPassword();
   }
 
   forgotPassword() {
@@ -78,10 +78,10 @@ export class ResetPasswordComponent {
   }
 
   resetPassword() {
-    // if (this.resetForm.invalid) {
-    //   this.resetForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.resetForm.invalid) {
+      this.resetForm.markAllAsTouched();
+      return;
+    }
     this.loading = true;
     this.authService.resetPassword(this.resetForm.value.email!, this.resetForm.value.token!, this.resetForm.value.newPassword!).subscribe({
       next: (data) => {
