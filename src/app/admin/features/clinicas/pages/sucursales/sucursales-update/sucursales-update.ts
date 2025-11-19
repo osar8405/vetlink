@@ -141,7 +141,7 @@ export class SucursalesUpdate {
         },
         error: (e) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar la foto de la sucursal, favor de intentarlo nuevamente',
+            'Ocurrió un error al cargar la foto de la sucursal, favor de intentarlo nuevamente',
             'error'
           );
         },
@@ -175,8 +175,8 @@ export class SucursalesUpdate {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrio un error al actualizar la sucursal, favor de intentarlo nuevamente'
-            : 'Ocurrio un error a guardar la sucursal, favor de intentarlo nuevamente',
+            ? 'Ocurrió un error al actualizar la sucursal, favor de intentarlo nuevamente'
+            : 'Ocurrió un error a guardar la sucursal, favor de intentarlo nuevamente',
           'error'
         );
       },

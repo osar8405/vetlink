@@ -43,7 +43,7 @@ export class CatalogosListComponent {
         map((resp) => resp.response),
         catchError((error) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar el listado de elementos.',
+            'Ocurrió un error al cargar el listado de elementos.',
             'error'
           );
           return of([]);
@@ -81,7 +81,7 @@ export class CatalogosListComponent {
         },
         error: (e) => {
           this.notificacion.show(
-            'Ocurrio un error al eliminar el elemento',
+            'Ocurrió un error al eliminar el elemento',
             'error'
           );
         },

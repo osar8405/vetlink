@@ -33,7 +33,7 @@ export class ClinicasListComponent {
         catchError((error) => {
           console.log("Error: ", error);
           this.notificacion.show(
-            'Ocurrio un error al cargar la lista de clinicas.',
+            'Ocurrió un error al cargar la lista de clinicas.',
             'error'
           );
           return of([]);

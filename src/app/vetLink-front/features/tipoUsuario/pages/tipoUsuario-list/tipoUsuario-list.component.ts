@@ -30,7 +30,7 @@ export class TipoUsuarioListComponent {
         map((resp) => resp.response),
         catchError((error) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar la lista de clinicas.',
+            'Ocurrió un error al cargar la lista de clinicas.',
             'error'
           );
           return of([]);

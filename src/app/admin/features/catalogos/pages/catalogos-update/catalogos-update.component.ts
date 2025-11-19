@@ -108,8 +108,8 @@ export class CatalogosUpdateComponent {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrio un error al actualizar el elemento, favor de intentarlo nuevamente'
-            : 'Ocurrio un error a guardar el elemento, favor de intentarlo nuevamente',
+            ? 'Ocurrió un error al actualizar el elemento, favor de intentarlo nuevamente'
+            : 'Ocurrió un error a guardar el elemento, favor de intentarlo nuevamente',
           'error'
         );
       },

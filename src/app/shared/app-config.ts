@@ -7,6 +7,6 @@ export class AppConfig {
 
   public static handleErrors(error: HttpErrorResponse) {
     console.log("handleError: ", JSON.stringify(error));
-    return throwError(() => new Error(error.message));
+    return throwError(() => error);
   }
 }

@@ -67,7 +67,7 @@ export class LoginPageComponent {
       error: (e) => {
         this.loading = false;
         this.notificacion.show(
-          'Ocurrio un error al iniciar sesión, inténtelo nuevamente',
+          'Ocurrió un error al iniciar sesión, inténtelo nuevamente',
           'error'
         );
       },

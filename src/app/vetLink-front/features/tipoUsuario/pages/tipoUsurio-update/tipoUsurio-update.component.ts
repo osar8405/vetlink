@@ -36,7 +36,7 @@ export class TipoUsurioUpdateComponent {
   myForm: FormGroup = this.fb.group({
     id: [0],
     nombre: ['', Validators.required],
-   
+
   });
 
   tipoUsuarioResource = this.isEditMode
@@ -89,7 +89,7 @@ export class TipoUsurioUpdateComponent {
         },
         error: (e) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
+            'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
             'error'
           );
         },
@@ -123,8 +123,8 @@ export class TipoUsurioUpdateComponent {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrio un error al actualizar el tipo usuario, favor de intentarlo nuevamente'
-            : 'Ocurrio un error a guardar el tipo usuario, favor de intentarlo nuevamente',
+            ? 'Ocurrió un error al actualizar el tipo usuario, favor de intentarlo nuevamente'
+            : 'Ocurrió un error a guardar el tipo usuario, favor de intentarlo nuevamente',
           'error'
         );
       },

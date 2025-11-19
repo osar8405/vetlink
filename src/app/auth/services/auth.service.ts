@@ -65,7 +65,6 @@ export class AuthService {
   getToken(): string {
     return this.tokenSub.value ?? '';
   }
-
   getUserData(): any | null {
     const token = this.getToken();
     if (!token) return null;

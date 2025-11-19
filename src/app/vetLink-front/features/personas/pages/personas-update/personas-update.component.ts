@@ -118,7 +118,7 @@ export class PersonasUpdateComponent {
         },
         error: (e) => {
           this.notificacion.show(
-            'Ocurrio un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
+            'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
             'error'
           );
         },
@@ -152,8 +152,8 @@ export class PersonasUpdateComponent {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrio un error al actualizar la persona, favor de intentarlo nuevamente'
-            : 'Ocurrio un error al guardar la persona, favor de intentarlo nuevamente',
+            ? 'Ocurrió un error al actualizar la persona, favor de intentarlo nuevamente'
+            : 'Ocurrió un error al guardar la persona, favor de intentarlo nuevamente',
           'error'
         );
       },
