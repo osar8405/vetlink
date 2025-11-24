@@ -9,6 +9,7 @@
         "src/app/shared/*"
       ],
       "@core/*": ["src/app/core/*"],
+      "@auth/*": ["src/app/auth/*"],
       "@assets/*": [
         "src/assets/*"
       ],

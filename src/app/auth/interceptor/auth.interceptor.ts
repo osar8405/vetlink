@@ -8,7 +8,7 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   // Evitar interceptar la solicitud de renovación de token
   if (
-    req.url.includes('/Auth/renovar-token')
+    req.url.includes('/Auth/')
   ) {
     return next(req);
   }

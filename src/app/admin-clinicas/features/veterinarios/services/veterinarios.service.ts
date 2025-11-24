@@ -50,7 +50,7 @@ export class VeterinariosService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  eliminaVeterinario(veterinarioId: number): Observable<VeterinariosResponse> {
+  eliminaVeterinario(veterinarioId: string): Observable<VeterinariosResponse> {
     return this.http
       .delete<VeterinariosResponse>(
         `${AppConfig.APIREST_URL}/api/Veterinario/Eliminar/${veterinarioId}`

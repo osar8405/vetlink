@@ -13,7 +13,7 @@ export const ClinicasRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'list',
+    redirectTo: '',
   },
 ];
 

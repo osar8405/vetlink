@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { noAuthGuard } from '@auth/guards/no-auth.guard';
 
 export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.routes'),
+     canMatch: [noAuthGuard]
   },
   {
     path: 'admin',

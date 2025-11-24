@@ -1,1 +1,55 @@
-<p>veterinarios-update works!</p>,
+@if (clinicaResource?.error()) {
+<shared-not-found-page mensaje="{{clinicaResource?.error()}}" />
+}
+@if (!clinicaResource?.error()) {
+<div class="min-h-screen flex items-center justify-center">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
+    <h2 class="text-3xl font-bold mb-6">Datos de la clínica</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @if (isEditMode) {
+      <div>
+        <label class="label">ID</label>
+        <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
+      </div>
+
+      <!-- Estatus -->
+      <div>
+        <label class="label w-full">Estatus</label>
+        <input type="checkbox" formControlName="activo" class="toggle toggle-primary " />
+      </div>
+      }
+
+      <!-- nombreClinica -->
+      <div>
+        <label class="label">Clínica</label>
+        <input type="text" formControlName="nombreClinica" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('nombreClinica')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('nombreClinica')!"></shared-form-error-label>
+      </div>
+
+      <!-- logo -->
+      <div>
+        <label class="label">Logo</label>
+        <input type="email" formControlName="logo" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('logo')!"></shared-form-error-label>
+      </div>
+
+      <!-- sitioWeb -->
+      <div>
+        <label class="label">Sitio Web</label>
+        <input type="text" formControlName="sitioWeb" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('sitioWeb')!"></shared-form-error-label>
+      </div>
+    </div>
+
+   
+
+    <!-- Botones -->
+    <div class="flex justify-end mt-8 gap-4">
+      <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+}

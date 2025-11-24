@@ -19,6 +19,10 @@ export const AdminRoutes: Routes = [
         path: 'catalogos',
         loadChildren: () => import('./features/catalogos/catalogos.routes'),
       },
+      {
+        path: 'roles',
+        loadChildren: () => import('./features/roles/roles.routes'),
+      },
     ]
   },
   {

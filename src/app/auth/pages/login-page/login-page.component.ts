@@ -34,7 +34,7 @@ export class LoginPageComponent {
     this.route.queryParams.subscribe((params) => {
       if (params['sessionExpired']) {
         this.notificacion.show(
-          'Tu sesión expiró, vuelve a iniciar sesión',
+          'Su sesión expiró, vuelva a iniciar sesión',
           'warning'
         );
         this.router.navigate([], {
@@ -64,10 +64,10 @@ export class LoginPageComponent {
           this.credencialesInvalidas = true;
         }
       },
-      error: (e) => {
+      error: (error) => {
         this.loading = false;
         this.notificacion.show(
-          'Ocurrió un error al iniciar sesión, inténtelo nuevamente',
+          error?.error?.message[0] || 'Error en el servidor',
           'error'
         );
       },
