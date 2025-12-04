@@ -33,10 +33,7 @@ export class LoginPageComponent {
   constructor() {
     this.route.queryParams.subscribe((params) => {
       if (params['sessionExpired']) {
-        this.notificacion.show(
-          'Su sesión expiró, vuelva a iniciar sesión',
-          'warning'
-        );
+        this.muestraAlerta('Tu sesión expiró, vuelve a iniciar sesión', 'warning');
         this.router.navigate([], {
           queryParams: {
             sessionExpired: null,
@@ -62,12 +59,14 @@ export class LoginPageComponent {
         } else {
           this.loginError = false;
           this.credencialesInvalidas = true;
+          this.muestraAlerta(`Ocurrió un error al iniciar sesión, ${data.message[0]}`, 'error');
         }
       },
-      error: (error) => {
+      error: (e) => {
+        console.error('El error: ', e);
         this.loading = false;
-        this.notificacion.show(
-          error?.error?.message[0] || 'Error en el servidor',
+        this.muestraAlerta(
+          'Ocurrió un error al iniciar sesión,Inténtelo nuevamente.',
           'error'
         );
       },
@@ -75,5 +74,9 @@ export class LoginPageComponent {
         this.loading = false;
       },
     });
+  }
+
+  muestraAlerta(mensaje: string, tipoAlerta: 'error' | 'warning' = 'error') {
+    this.notificacion.show(mensaje, tipoAlerta);
   }
 }

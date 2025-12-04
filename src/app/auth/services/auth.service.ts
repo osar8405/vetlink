@@ -24,9 +24,11 @@ export class AuthService {
       })
       .pipe(
         tap((resp) => {
-          console.log('resp: ', resp);
-          localStorage.setItem('authToken', resp.response.token);
-          this.tokenSub.next(resp.response.token);
+          const token = resp.response?.token;
+          if (token) {
+            localStorage.setItem('authToken', resp.response!.token);
+            this.tokenSub.next(resp.response!.token);
+          }
         })
       );
   }

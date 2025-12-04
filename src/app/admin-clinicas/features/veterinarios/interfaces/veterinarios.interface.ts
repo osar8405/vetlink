@@ -38,7 +38,7 @@ export interface Persona {
   primerApellido:       string;
   segundoApellido:      string;
   genero:               string;
-  fechaNacimiento:      Date;
+  fechaNacimiento:      string;
   email:                null;
   numeroIdentificacion: number;
   imagen:               string;

@@ -15,7 +15,7 @@ export class VeterinariosService {
   obtieneVeterinarios(): Observable<VeterinariosResponse> {
     return this.http
       .get<VeterinariosResponse>(
-        `${AppConfig.APIREST_URL}/api/Veterinario/listado`
+        `${AppConfig.APIREST_URL}api/Veterinario/listado`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
