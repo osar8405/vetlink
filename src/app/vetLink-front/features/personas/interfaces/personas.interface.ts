@@ -7,16 +7,27 @@ export interface ApiResponse<T> {
 export interface Persona {
   id:                   string;
   usuarioId:            string;
-  tipoUsuarioId:        null;
-  tipoUsuarioNombre:    null;
+  tipoUsuarioId:        number;
+  tipoUsuarioNombre:    string;
   nombre:               string;
   primerApellido:       string;
   segundoApellido:      string;
   genero:               string;
   fechaNacimiento:      string;
   email:                string;
-  numeroIdentificacion: null;
-  imagen:               null;
+  numeroIdentificacion: number;
+  imagen:               string;
+  url:                  string | null;
+  direccion:            PersonaDireccion | null;
+}
+export interface PersonaDireccion {
+  calle:     string | null;
+  noInt:     string | null;
+  noExt:     string | null;
+  colonia:   string | null;
+  municipio: string | null;
+  estado:    string | null;
+  cp:        string | null;
 }
 
 export type PersonasResponse = ApiResponse<Persona[]>;

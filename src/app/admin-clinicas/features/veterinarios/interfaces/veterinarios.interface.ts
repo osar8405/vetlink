@@ -5,20 +5,22 @@ export interface ApiResponse<T> {
 }
 
 export interface Veterinario {
-  id:                string;
-  nombreCompleto:    string;
-  sucursales:        string[];
-  clinicas:          string[];
+  id: string;
+  nombreCompleto: string;
+  sucursales: string[];
+  clinicas: string[];
   cedulaProfesional: string;
-  horarios:          string;
+  horarios: string;
+
+  persona?: Persona;
 }
 
 export type VeterinariosResponse = ApiResponse<Veterinario[]>;
 
 export interface VeterinarioResponse {
-  response: Response;
-  status:   boolean;
-  message:  string[];
+  response: Veterinario;
+  status: boolean;
+  message: string[];
 }
 
 export interface Response {
@@ -42,6 +44,7 @@ export interface Persona {
   email:                null;
   numeroIdentificacion: number;
   imagen:               string;
+  url:                  string;
 }
 
 

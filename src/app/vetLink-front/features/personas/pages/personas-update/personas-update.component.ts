@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { DatePipe, Location } from '@angular/common';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { map, subscribeOn, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
 import { FormUtils } from '@core/utils/form-utils';
@@ -16,6 +16,8 @@ import { NotificacionService } from '@shared/services/notificacion.service';
 import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 import { PersonasService } from '../../services/personas.service';
 import { Persona } from '../../interfaces/personas.interface';
+import { SelectFileComponent } from '@shared/components/upload-file/select-file.component';
+import { TipoUsuarioService } from '../../../tipoUsuario/services/tipoUsuario.service';
 
 @Component({
   selector: 'app-personas-update',
@@ -23,12 +25,14 @@ import { Persona } from '../../interfaces/personas.interface';
     NotFoundPageComponent,
     ReactiveFormsModule,
     FormErrorLabelComponent,
+    SelectFileComponent,
   ],
   templateUrl: './personas-update.component.html',
   providers: [DatePipe],
 })
 export class PersonasUpdateComponent {
   personasService = inject(PersonasService);
+  tipoUsuarioService = inject(TipoUsuarioService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
   private activatedRoute = inject(ActivatedRoute);
@@ -36,6 +40,7 @@ export class PersonasUpdateComponent {
   location = inject(Location);
   datePipe = inject(DatePipe);
   formUtils = FormUtils;
+  imagePreview: string | null = null;
   personaId = toSignal(
     this.activatedRoute.params.pipe(map((params) => params['id']))
   );
@@ -43,16 +48,27 @@ export class PersonasUpdateComponent {
   myForm: FormGroup = this.fb.group({
     id: [],
     usuarioId: [],
-    tipoUsuarioId: [],
-    tipoUsuarioNombre: [],
-    nombre: [],
-    primerApellido: [],
-    segundoApellido: [],
-    genero: [],
-    fechaNacimiento: [],
-    email: [],
-    numeroIdentificacion: [],
-    imagen: [],
+    tipoUsuarioId: ['', Validators.required],
+    nombre: ['', Validators.required],
+    primerApellido: ['', Validators.required],
+    segundoApellido: ['', Validators.required],
+    genero: ['', Validators.required],
+    fechaNacimiento: ['', Validators.required],
+    email: [
+      '',
+      [Validators.required, Validators.pattern(FormUtils.emailPattern)],
+    ],
+    numeroIdentificacion: ['', Validators.required],
+    imagen: [''],
+    direccion: this.fb.group({
+      calle: ['', Validators.required],
+      noInt: [''],
+      noExt: ['', Validators.required],
+      colonia: ['', Validators.required],
+      municipio: ['', Validators.required],
+      estado: ['', Validators.required],
+      cp: ['', Validators.required],
+    })
   });
 
   personaResource = this.isEditMode
@@ -68,6 +84,14 @@ export class PersonasUpdateComponent {
         },
       })
     : null;
+
+  tipoUsuarioResource = rxResource({
+    loader: ({}) => {
+      return this.tipoUsuarioService
+        .obtieneTipoUsuarios()
+        .pipe(map((resp) => resp.response));
+    },
+  });
 
   constructor() {
     if (this.isEditMode && this.personaResource) {
@@ -85,7 +109,6 @@ export class PersonasUpdateComponent {
       id: persona.id,
       usuarioId: persona.usuarioId,
       tipoUsuarioId: persona.tipoUsuarioId,
-      tipoUsuarioNombre: persona.tipoUsuarioNombre,
       nombre: persona.nombre,
       primerApellido: persona.primerApellido,
       segundoApellido: persona.segundoApellido,
@@ -97,7 +120,25 @@ export class PersonasUpdateComponent {
       email: persona.email,
       numeroIdentificacion: persona.numeroIdentificacion,
       imagen: persona.imagen,
+      direccion: {
+        calle: persona.direccion?.calle,
+        noInt: persona.direccion?.noInt,
+        noExt: persona.direccion?.noExt,
+        colonia: persona.direccion?.colonia,
+        municipio: persona.direccion?.municipio,
+        estado: persona.direccion?.estado,
+        cp: persona.direccion?.cp,
+      }
     });
+  }
+
+  onFileSelected(file: File | null): void {
+    this.myForm.patchValue({
+      imagen: file,
+      url: '',
+    });
+    this.myForm.get('imagen')?.markAsTouched();
+    this.myForm.get('imagen')?.updateValueAndValidity();
   }
 
   onSubmit() {
@@ -105,33 +146,33 @@ export class PersonasUpdateComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-    if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
-      const nombreImagen = `${this.myForm.get('id')?.value}-${String(
-        Date.now()
-      ).substring(0, 10)}`;
-      const file: File = this.myForm.controls['imagen'].value;
-      this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
-        next: (data) => {
-          this.myForm.patchValue({
-            url: data.response,
-          });
-        },
-        error: (e) => {
-          this.notificacion.show(
-            'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
-            'error'
-          );
-        },
-        complete: () => {
-          this.registraTipoUsuario();
-        },
-      });
-    } else {
-      this.registraTipoUsuario();
-    }
+    // if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
+    //   const nombreImagen = `${this.myForm.get('id')?.value}-${String(
+    //     Date.now()
+    //   ).substring(0, 10)}`;
+    //   const file: File = this.myForm.controls['imagen'].value;
+    //   this.cdnService.uploadFile('persona', nombreImagen, file).subscribe({
+    //     next: (data) => {
+    //       this.myForm.patchValue({
+    //         url: data.response,
+    //       });
+    //     },
+    //     error: (e) => {
+    //       this.notificacion.show(
+    //         'Ocurrió un error al cargar la foto de la persona, favor de intentarlo nuevamente',
+    //         'error'
+    //       );
+    //     },
+    //     complete: () => {
+    //       this.registraPersona();
+    //     },
+    //   });
+    // } else {
+      this.registraPersona();
+    // }
   }
 
-  registraTipoUsuario() {
+  registraPersona() {
     const request$ = this.isEditMode
       ? this.personasService.actualizaPersona(this.myForm.value)
       : this.personasService.nuevaPersona(this.myForm.value);

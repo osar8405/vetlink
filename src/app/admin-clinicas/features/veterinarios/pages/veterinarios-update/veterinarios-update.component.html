@@ -4,7 +4,7 @@
 @if (!clinicaResource?.error()) {
 <div class="min-h-screen flex items-center justify-center">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
-    <h2 class="text-3xl font-bold mb-6">Datos de la clínica</h2>
+    <h2 class="text-3xl font-bold mb-6">Datos del veterinario</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       @if (isEditMode) {
@@ -14,36 +14,91 @@
       </div>
 
       <!-- Estatus -->
-      <div>
+      <!-- <div>
         <label class="label w-full">Estatus</label>
-        <input type="checkbox" formControlName="activo" class="toggle toggle-primary " />
-      </div>
+        <input type="checkbox" formControlName="status" class="toggle toggle-primary " />
+      </div> -->
       }
 
-      <!-- nombreClinica -->
-      <div>
-        <label class="label">Clínica</label>
-        <input type="text" formControlName="nombreClinica" class="input input-bordered w-full"
-          [class.border-red-500]="myForm.get('nombreClinica')?.errors ?? false" />
-        <shared-form-error-label [control]="myForm.get('nombreClinica')!"></shared-form-error-label>
+      <div formGroupName="persona" class="contents">
+        <!-- Nombre -->
+        <div>
+          <label class="label">Nombre</label>
+          <input type="text" formControlName="nombre" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.nombre')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.nombre')!"></shared-form-error-label>
+        </div>
+
+        <!-- Apellido Paterno -->
+        <div>
+          <label class="label">Apellido Paterno</label>
+          <input type="text" formControlName="primerApellido" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.primerApellido')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.primerApellido')!"></shared-form-error-label>
+        </div>
+
+        <!-- Apellido Materno -->
+        <div>
+          <label class="label">Apellido Materno</label>
+          <input type="text" formControlName="segundoApellido" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.segundoApellido')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.segundoApellido')!"></shared-form-error-label>
+        </div>
+
+        <!-- Genero -->
+        <div>
+          <label class="label">Genero</label>
+          <select formControlName="genero" class="select select-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.genero')?.errors ?? false">
+            <option value="" disabled selected>Seleccione un genero</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+          <shared-form-error-label [control]="myForm.get('persona.genero')!"></shared-form-error-label>
+        </div>
+
+        <!-- Fecha de nacimiento -->
+        <div>
+          <label class="label">Fecha de nacimiento</label>
+          <input type="date" formControlName="fechaNacimiento" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.fechaNacimiento')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.fechaNacimiento')!"></shared-form-error-label>
+        </div>
+
+        <!-- email -->
+        <div>
+          <label class="label">Correo electrónico</label>
+          <input type="email" formControlName="email" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.email')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.email')!"></shared-form-error-label>
+        </div>
+
+        <!-- Numero de identificación -->
+        <div>
+          <label class="label">Número de identificación</label>
+          <input type="text" formControlName="numeroIdentificacion" class="input input-bordered w-full"
+            [class.border-red-500]="myForm.get('persona.numeroIdentificacion')?.errors ?? false" />
+          <shared-form-error-label [control]="myForm.get('persona.numeroIdentificacion')!"></shared-form-error-label>
+        </div>
+
       </div>
 
-      <!-- logo -->
+      <!-- Cédula -->
       <div>
-        <label class="label">Logo</label>
-        <input type="email" formControlName="logo" class="input input-bordered w-full" />
-        <shared-form-error-label [control]="myForm.get('logo')!"></shared-form-error-label>
+        <label class="label">Cédula</label>
+        <input type="text" formControlName="cedulaProfesional" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('cedulaProfesional')!"></shared-form-error-label>
       </div>
 
-      <!-- sitioWeb -->
+      <!-- Horarios -->
       <div>
-        <label class="label">Sitio Web</label>
-        <input type="text" formControlName="sitioWeb" class="input input-bordered w-full" />
-        <shared-form-error-label [control]="myForm.get('sitioWeb')!"></shared-form-error-label>
+        <label class="label">Horarios</label>
+        <input type="text" formControlName="horarios" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('horarios')!"></shared-form-error-label>
       </div>
+
+      <shared-select-file [preview]="imagePreview" (imagen)="onFileSelected($event)"></shared-select-file>
     </div>
-
-   
 
     <!-- Botones -->
     <div class="flex justify-end mt-8 gap-4">

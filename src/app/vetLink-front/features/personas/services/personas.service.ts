@@ -51,7 +51,7 @@ export class PersonasService {
   actualizaPersona(persona: Partial<Persona>): Observable<PersonasResponse> {
     return this.http
       .put<PersonasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Actualizar/${persona.id}`, persona
+        `${AppConfig.APIREST_URL}/api/Persona/Actualizar/${persona.id}`, persona
       )
       .pipe(catchError(AppConfig.handleErrors));
   }
@@ -59,7 +59,7 @@ export class PersonasService {
   eliminaPersona(personaId: string): Observable<PersonasResponse> {
     return this.http
       .delete<PersonasResponse>(
-        `${AppConfig.APIREST_URL}/api/Clinica/Eliminar/${personaId}`
+        `${AppConfig.APIREST_URL}/api/Persona/Eliminar/${personaId}`
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

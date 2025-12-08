@@ -47,6 +47,8 @@ export class ResetPasswordComponent {
   constructor() {
     const token = this.route.snapshot.queryParamMap.get('token');
     const email = this.route.snapshot.queryParamMap.get('email');
+    console.log('Token recibido: ', token);
+    console.log('Email recibido: ', email);
 
     if (token && email) {
       this.vista.set(2);

@@ -20,7 +20,7 @@ export class VeterinariosService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  obtieneVeterinario(veterinarioId: number): Observable<VeterinarioResponse> {
+  obtieneVeterinario(veterinarioId: string): Observable<VeterinarioResponse> {
     return this.http
       .get<VeterinarioResponse>(
         `${AppConfig.APIREST_URL}/api/Veterinario/Detalles/${veterinarioId}`
@@ -44,7 +44,7 @@ export class VeterinariosService {
   ): Observable<VeterinariosResponse> {
     return this.http
       .put<VeterinariosResponse>(
-        `${AppConfig.APIREST_URL}/api/Veterinario/Editar/${veterinario.id}`,
+        `${AppConfig.APIREST_URL}/api/Veterinario/Actualizar/${veterinario.id}`,
         veterinario
       )
       .pipe(catchError(AppConfig.handleErrors));

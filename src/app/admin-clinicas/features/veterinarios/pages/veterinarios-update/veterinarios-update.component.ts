@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -15,51 +15,70 @@ import { NotFoundPageComponent } from '@shared/components/not-found-page/not-fou
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { FormErrorLabelComponent } from "@shared/components/form-error-label/form-error-label.component";
 import { VeterinariosService } from '../../services/veterinarios.service';
+import type { Veterinario } from '../../interfaces/veterinarios.interface';
+import { SelectFileComponent } from '@shared/components/upload-file/select-file.component';
 @Component({
   selector: 'app-veterinarios-update',
-  imports: [NotFoundPageComponent,
+  imports: [
+    NotFoundPageComponent,
     ReactiveFormsModule,
-    FormErrorLabelComponent,],
+    FormErrorLabelComponent,
+    SelectFileComponent,
+  ],
+  providers: [DatePipe],
   templateUrl: './veterinarios-update.component.html',
 })
 export class VeterinariosUpdateComponent {
-  veterinariosService = inject(VeterinariosService)
+  veterinariosService = inject(VeterinariosService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
   private activatedRoute = inject(ActivatedRoute);
   cdnService = inject(CdnService);
   location = inject(Location);
   formUtils = FormUtils;
+  datePipe = inject(DatePipe);
   selectedFile: File | null = null;
-  imagePreview: string | ArrayBuffer | null = null;
+  imagePreview: string | null = null;
   clinicaId = toSignal(
     this.activatedRoute.params.pipe(map((params) => params['id']))
   );
   isEditMode = this.clinicaId() === 'new' ? false : true;
   myForm: FormGroup = this.fb.group({
-    id: [0],
-    nombreClinica: ['', Validators.required],
-    logo: ['', [Validators.required]],
-    sitioWeb: ['', Validators.required],
-    activo: [true],
-    suscripcionId: [0],
+    id: [''],
+    persona: this.fb.group({
+      id: [''],
+      tipoUsuarioId: [''],
+      nombre: ['', Validators.required],
+      primerApellido: ['', Validators.required],
+      segundoApellido: [''],
+      genero: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required],
+      email: [''],
+      numeroIdentificacion: [''],
+      imagen: [''],
+    }),
+    cedulaProfesional: ['', Validators.required],
+    horarios: ['', Validators.required],
   });
 
   clinicaResource = this.isEditMode
     ? rxResource({
-      loader: () => {
-        return this.veterinariosService.obtieneVeterinario(this.clinicaId()).pipe(
-          tap((resp) => {
-            if (!resp.status) {
-              throw new Error(resp.message?.[0] || 'Error desconocido');
-            }
-          })
-        );
-      },
-    })
+        loader: () => {
+          return this.veterinariosService
+            .obtieneVeterinario(this.clinicaId())
+            .pipe(
+              tap((resp) => {
+                if (!resp.status) {
+                  throw new Error(resp.message?.[0] || 'Error desconocido');
+                }
+              })
+            );
+        },
+      })
     : null;
 
   constructor() {
+    console.log('isEditMode', this.isEditMode);
     if (this.isEditMode && this.clinicaResource) {
       effect(() => {
         const data = this.clinicaResource!.value();
@@ -70,34 +89,28 @@ export class VeterinariosUpdateComponent {
     }
   }
 
-  private llenaFormulario(clinica: any): void {
+  private llenaFormulario(veterinario: Veterinario): void {
     this.myForm.patchValue({
-      id: clinica.id,
-      nombreClinica: clinica.nombreClinica,
-      logo: clinica.logo,
-      sitioWeb: clinica.sitioWeb,
-      activo: clinica.activo,
-      suscripcionId: clinica.suscripcionId,
+      id: veterinario.id,
+      persona: {
+        id: veterinario.persona?.id,
+        tipoUsuarioId: veterinario.persona?.tipoUsuarioId,
+        nombre: veterinario.persona?.nombre,
+        primerApellido: veterinario.persona?.primerApellido,
+        segundoApellido: veterinario.persona?.segundoApellido,
+        genero: veterinario.persona?.genero,
+        fechaNacimiento: this.datePipe.transform(
+          new Date(veterinario.persona?.fechaNacimiento || ''),
+          'yyyy-MM-dd'
+        ),
+        email: veterinario.persona?.email,
+        numeroIdentificacion: veterinario.persona?.numeroIdentificacion,
+        imagen: veterinario.persona?.imagen,
+      },
+      cedulaProfesional: veterinario.cedulaProfesional,
+      horarios: veterinario.horarios,
     });
-  }
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      if (!this.selectedFile.type.match('image.*')) {
-        alert('Solo se permiten imágenes');
-        return;
-      }
-      this.myForm.patchValue({
-        imagen: this.selectedFile,
-        url: '',
-      });
-      this.myForm.get('imagen')?.markAsTouched();
-      this.myForm.get('imagen')?.updateValueAndValidity();
-
-      this.previewImage(this.selectedFile);
-    }
+    this.imagePreview = veterinario.persona?.imagen ?? null;
   }
 
   private previewImage(file: File): void {
@@ -119,35 +132,44 @@ export class VeterinariosUpdateComponent {
     this.myForm.get('imagen')?.updateValueAndValidity();
   }
 
+  onFileSelected(file: File | null): void {
+    this.myForm.patchValue({
+      imagen: file,
+      url: '',
+    });
+    this.myForm.get('imagen')?.markAsTouched();
+    this.myForm.get('imagen')?.updateValueAndValidity();
+  }
+
   onSubmit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
-    if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
-      const nombreImagen = `${this.myForm.get('id')?.value}-${String(
-        Date.now()
-      ).substring(0, 10)}`;
-      const file: File = this.myForm.controls['imagen'].value;
-      this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
-        next: (data) => {
-          this.myForm.patchValue({
-            url: data.response,
-          });
-        },
-        error: (e) => {
-          this.notificacion.show(
-            'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
-            'error'
-          );
-        },
-        complete: () => {
-          this.registraClinica();
-        },
-      });
-    } else {
+    // if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
+    //   const nombreImagen = `${this.myForm.get('id')?.value}-${String(
+    //     Date.now()
+    //   ).substring(0, 10)}`;
+    //   const file: File = this.myForm.controls['imagen'].value;
+    //   this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
+    //     next: (data) => {
+    //       this.myForm.patchValue({
+    //         url: data.response,
+    //       });
+    //     },
+    //     error: (e) => {
+    //       this.notificacion.show(
+    //         'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
+    //         'error'
+    //       );
+    //     },
+    //     complete: () => {
+    //       this.registraClinica();
+    //     },
+    //   });
+    // } else {
       this.registraClinica();
-    }
+    // }
   }
 
   registraClinica() {

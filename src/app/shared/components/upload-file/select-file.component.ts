@@ -1,10 +1,10 @@
 import { Component, input, output, signal, computed } from '@angular/core';
 
 @Component({
-  selector: 'shared-upload-file',
-  templateUrl: './upload-file.component.html',
+  selector: 'shared-select-file',
+  templateUrl: './select-file.component.html',
 })
-export class UploadFileComponent {
+export class SelectFileComponent {
   preview = input<string | null>(null);
   imagen = output<File | null>();
   private filePreview = signal<string | null>(null);
