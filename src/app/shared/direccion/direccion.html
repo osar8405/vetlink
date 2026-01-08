@@ -1,0 +1,59 @@
+<div class="mt-10">
+  <h2 class="text-3xl font-bold mb-6 flex flex-col items-center justify-center">Dirección component</h2>
+  <form [formGroup]="myForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Calle -->
+    <div>
+      <label class="label">Calle</label>
+      <input type="text" formControlName="calle" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('calle')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('calle')!"></shared-form-error-label>
+    </div>
+
+    <!-- Numero int -->
+    <div>
+      <label class="label">Numero interior</label>
+      <input type="text" formControlName="noInt" class="input input-bordered w-full" />
+      <shared-form-error-label [control]="myForm.get('noInt')!"></shared-form-error-label>
+    </div>
+
+    <!-- Numero ext -->
+    <div>
+      <label class="label">Numero exterior</label>
+      <input type="text" formControlName="noExt" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('noExt')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('noExt')!"></shared-form-error-label>
+    </div>
+
+    <!-- CP -->
+    <div>
+      <label class="label">Código Postal</label>
+      <input type="number" formControlName="cp" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('cp')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('cp')!"></shared-form-error-label>
+    </div>
+
+    <!-- Colonia -->
+    <div>
+      <label class="label">Colonia</label>
+      <input type="text" formControlName="colonia" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('colonia')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('colonia')!"></shared-form-error-label>
+    </div>
+
+    <!-- Municipio -->
+    <div>
+      <label class="label">Municipio</label>
+      <input type="text" formControlName="municipio" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('municipio')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('municipio')!"></shared-form-error-label>
+    </div>
+
+    <!-- Estado -->
+    <div>
+      <label class="label">Estado</label>
+      <input type="text" formControlName="estado" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('estado')?.errors ?? false" />
+      <shared-form-error-label [control]="myForm.get('estado')!"></shared-form-error-label>
+    </div>
+  </form>
+</div>

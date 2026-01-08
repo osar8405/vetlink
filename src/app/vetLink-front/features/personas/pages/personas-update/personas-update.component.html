@@ -46,7 +46,7 @@
       <!-- Numero de identificación -->
       <div>
         <label class="label">Número de identificación</label>
-        <input type="text" formControlName="numeroIdentificacion" class="input input-bordered w-full" />
+        <input type="number" formControlName="numeroIdentificacion" class="input input-bordered w-full" />
         <shared-form-error-label [control]="myForm.get('numeroIdentificacion')!"></shared-form-error-label>
       </div>
 
@@ -110,7 +110,7 @@
         <!-- CP -->
         <div>
           <label class="label">Código Postal</label>
-          <input type="number" formControlName="cp" class="input input-bordered w-full" />
+          <input type="text" formControlName="cp" class="input input-bordered w-full" />
           <shared-form-error-label [control]="myForm.get('direccion.cp')!"></shared-form-error-label>
         </div>
 
@@ -136,6 +136,7 @@
         </div>
       </div>
     </div>
+    <shared-direccion></shared-direccion>
 
     <!-- Botones -->
     <div class="flex justify-end mt-8 gap-4">

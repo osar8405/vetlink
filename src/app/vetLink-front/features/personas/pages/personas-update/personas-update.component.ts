@@ -18,6 +18,7 @@ import { PersonasService } from '../../services/personas.service';
 import { Persona } from '../../interfaces/personas.interface';
 import { SelectFileComponent } from '@shared/components/upload-file/select-file.component';
 import { TipoUsuarioService } from '../../../tipoUsuario/services/tipoUsuario.service';
+import { Direccion } from '@shared/direccion/direccion';
 
 @Component({
   selector: 'app-personas-update',
@@ -26,6 +27,7 @@ import { TipoUsuarioService } from '../../../tipoUsuario/services/tipoUsuario.se
     ReactiveFormsModule,
     FormErrorLabelComponent,
     SelectFileComponent,
+    Direccion,
   ],
   templateUrl: './personas-update.component.html',
   providers: [DatePipe],
@@ -59,6 +61,7 @@ export class PersonasUpdateComponent {
       [Validators.required, Validators.pattern(FormUtils.emailPattern)],
     ],
     numeroIdentificacion: ['', Validators.required],
+    telefono: [''],
     imagen: [''],
     direccion: this.fb.group({
       calle: ['', Validators.required],
@@ -67,7 +70,8 @@ export class PersonasUpdateComponent {
       colonia: ['', Validators.required],
       municipio: ['', Validators.required],
       estado: ['', Validators.required],
-      cp: ['', Validators.required],
+      cp: [null, Validators.required],
+      id: [0],
     })
   });
 
@@ -107,7 +111,7 @@ export class PersonasUpdateComponent {
   private llenaFormulario(persona: Persona): void {
     this.myForm.patchValue({
       id: persona.id,
-      usuarioId: persona.usuarioId,
+      usuarioId: "",
       tipoUsuarioId: persona.tipoUsuarioId,
       nombre: persona.nombre,
       primerApellido: persona.primerApellido,
@@ -119,6 +123,7 @@ export class PersonasUpdateComponent {
       ),
       email: persona.email,
       numeroIdentificacion: persona.numeroIdentificacion,
+      telefono: persona.telefono,
       imagen: persona.imagen,
       direccion: {
         calle: persona.direccion?.calle,
@@ -128,6 +133,7 @@ export class PersonasUpdateComponent {
         municipio: persona.direccion?.municipio,
         estado: persona.direccion?.estado,
         cp: persona.direccion?.cp,
+        id: persona.direccion?.id,
       }
     });
   }
