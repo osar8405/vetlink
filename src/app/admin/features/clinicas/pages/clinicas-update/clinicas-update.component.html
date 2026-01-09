@@ -28,12 +28,16 @@
         <shared-form-error-label [control]="myForm.get('nombreClinica')!"></shared-form-error-label>
       </div>
 
-      <!-- logo -->
+      <!-- suscripcion -->
       <div>
-        <label class="label">Logo</label>
-        <input type="email" formControlName="logo" class="input input-bordered w-full" />
-        <shared-form-error-label [control]="myForm.get('logo')!"></shared-form-error-label>
+        <label class="label">Suscripción</label>
+        <input type="text" formControlName="suscripcion" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('suscripcion')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('suscripcion')!"></shared-form-error-label>
       </div>
+
+      <!-- logo -->
+      <shared-select-file [preview]="imagePreview" (imagen)="onFileSelected($event)"></shared-select-file>
 
       <!-- sitioWeb -->
       <div>
@@ -43,8 +47,8 @@
       </div>
     </div>
 
-    <!-- 🔽 Selector de sucursales -->
-    <div class="mt-6">
+    <!-- 🔽 Sucursales -->
+    <!-- <div class="mt-6">
       <label class="label">Sucursales</label>
       <select class="select select-bordered w-full" (change)="onSucursalChange($event)">
         <option value="">Selecciona una sucursal</option>
@@ -52,7 +56,7 @@
         <option [value]="sucursal.id">{{ sucursal.nombreSucursal }}</option>
         }
       </select>
-    </div>
+    </div> -->
 
     <!-- 📍 Datos de la sucursal seleccionada -->
     @if (sucursalSeleccionada()) {

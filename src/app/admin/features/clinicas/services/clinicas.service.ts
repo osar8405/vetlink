@@ -5,6 +5,7 @@ import { AppConfig } from '@shared/app-config';
 import type {
   Clinica,
   ClinicasResponse,
+  ClinicaResponse,
 } from '../interfaces/clinicas.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -17,9 +18,9 @@ export class ClinicasService {
       .pipe(catchError(AppConfig.handleErrors));
   }
 
-  obtieneClinica(hotelId: number): Observable<ClinicasResponse> {
+  obtieneClinica(hotelId: number): Observable<ClinicaResponse> {
     return this.http
-      .get<ClinicasResponse>(
+      .get<ClinicaResponse>(
         `${AppConfig.APIREST_URL}api/Clinica/Detalles/${hotelId}`
       )
       .pipe(catchError(AppConfig.handleErrors));

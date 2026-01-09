@@ -15,15 +15,17 @@ import type { Clinica } from '../../interfaces/clinicas.interface';
 import { ClinicasService } from '../../services/clinicas.service';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
-import { FormErrorLabelComponent } from "@shared/components/form-error-label/form-error-label.component";
+import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 import { Sucursal } from '../../interfaces/sucursales.interface';
 import { SucursalesService } from '../../services/sucursales.service';
+import { SelectFileComponent } from '@shared/components/upload-file/select-file.component';
 @Component({
   selector: 'app-clinicas-update',
   imports: [
     NotFoundPageComponent,
     ReactiveFormsModule,
     FormErrorLabelComponent,
+    SelectFileComponent,
   ],
   templateUrl: './clinicas-update.component.html',
 })
@@ -37,28 +39,41 @@ export class ClinicasUpdateComponent {
   location = inject(Location);
   formUtils = FormUtils;
   selectedFile: File | null = null;
-  imagePreview: string | ArrayBuffer | null = null;
+  imagePreview: string | null = null;
   clinicaId = toSignal(
     this.activatedRoute.params.pipe(map((params) => params['id']))
   );
   isEditMode = this.clinicaId() === 'new' ? false : true;
+
+  // Sucursales
+  sucursales = signal<Sucursal[]>([]);
+  sucursalSeleccionadaId = signal<number | null>(null);
+  sucursalSeleccionada = signal<Sucursal | null>(null);
+
   myForm: FormGroup = this.fb.group({
     id: [0],
+    suscripcion: [null],
+    sucursales: [[]],
     nombreClinica: ['', Validators.required],
-    logo: ['', [Validators.required]],
     sitioWeb: ['', Validators.required],
+    logo: [''],
+    url: [''],
     activo: [true],
     suscripcionId: [0],
   });
 
   clinicaResource = this.isEditMode
     ? rxResource({
-        loader: () => {
-          return this.clinicasService.obtieneClinica(this.clinicaId()).pipe(
+        request: () => ({
+          clinicaId: this.clinicaId(),
+        }),
+        loader: ({ request }) => {
+          return this.clinicasService.obtieneClinica(request.clinicaId).pipe(
             tap((resp) => {
               if (!resp.status) {
                 throw new Error(resp.message?.[0] || 'Error desconocido');
               }
+              this.sucursales.set(resp.response.sucursales);
             })
           );
         },
@@ -75,68 +90,37 @@ export class ClinicasUpdateComponent {
       });
     }
 
-    // Nuevo efecto: al seleccionar sucursal, traer datos
     effect(() => {
       const id = this.sucursalSeleccionadaId();
       if (id) {
-        this.sucursalesService.obtieneSucursalPorId(id).subscribe({
-          next: (data) => {
-            if (data.status) {
-              this.sucursalSeleccionada.set(data.response);
-            }
-          },
-        });
+        const sucursalEncontrada = this.sucursales().find((s) => s.id === id);
+        this.sucursalSeleccionada.set(sucursalEncontrada || null);
       }
     });
   }
 
-  private llenaFormulario(clinica: any): void {
+  private llenaFormulario(clinica: Clinica): void {
     this.myForm.patchValue({
       id: clinica.id,
       nombreClinica: clinica.nombreClinica,
+      suscripcion: clinica.suscripcion,
+      sucursales: clinica.sucursales,
       logo: clinica.logo,
+      url: clinica.logo,
       sitioWeb: clinica.sitioWeb,
       activo: clinica.activo,
       suscripcionId: clinica.suscripcionId,
     });
+    this.imagePreview = `${clinica.logo}?n=${Math.random()}`;
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      if (!this.selectedFile.type.match('image.*')) {
-        alert('Solo se permiten imágenes');
-        return;
-      }
-      this.myForm.patchValue({
-        imagen: this.selectedFile,
-        url: '',
-      });
-      this.myForm.get('imagen')?.markAsTouched();
-      this.myForm.get('imagen')?.updateValueAndValidity();
-
-      this.previewImage(this.selectedFile);
-    }
-  }
-
-  private previewImage(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.imagePreview = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  limpiarImagen(inputRef: HTMLInputElement): void {
-    this.imagePreview = null;
-    inputRef.value = '';
-    this.selectedFile = null;
+  onFileSelected(file: File | null): void {
     this.myForm.patchValue({
-      imagen: null,
-      url: null,
+      logo: file,
+      url: '',
     });
-    this.myForm.get('imagen')?.updateValueAndValidity();
+    this.myForm.get('logo')?.markAsTouched();
+    this.myForm.get('logo')?.updateValueAndValidity();
   }
 
   onSubmit() {
@@ -144,30 +128,30 @@ export class ClinicasUpdateComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-    if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
-      const nombreImagen = `${this.myForm.get('id')?.value}-${String(
-        Date.now()
-      ).substring(0, 10)}`;
-      const file: File = this.myForm.controls['imagen'].value;
-      this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
-        next: (data) => {
-          this.myForm.patchValue({
-            url: data.response,
-          });
-        },
-        error: (e) => {
-          this.notificacion.show(
-            'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
-            'error'
-          );
-        },
-        complete: () => {
-          this.registraClinica();
-        },
-      });
-    } else {
-      this.registraClinica();
-    }
+    // if (this.myForm.get('imagen')?.value && !this.myForm.get('url')?.value) {
+    //   const nombreImagen = `${this.myForm.get('id')?.value}-${String(
+    //     Date.now()
+    //   ).substring(0, 10)}`;
+    //   const file: File = this.myForm.controls['imagen'].value;
+    //   this.cdnService.uploadFile('clinica', nombreImagen, file).subscribe({
+    //     next: (data) => {
+    //       this.myForm.patchValue({
+    //         url: data.response,
+    //       });
+    //     },
+    //     error: (e) => {
+    //       this.notificacion.show(
+    //         'Ocurrió un error al cargar la foto de la clinica, favor de intentarlo nuevamente',
+    //         'error'
+    //       );
+    //     },
+    //     complete: () => {
+    //       this.registraClinica();
+    //     },
+    //   });
+    // } else {
+    this.registraClinica();
+    // }
   }
 
   registraClinica() {
@@ -202,21 +186,6 @@ export class ClinicasUpdateComponent {
   goBack() {
     this.location.back();
   }
-
-  sucursales = signal<Sucursal[]>([]);
-  sucursalSeleccionadaId = signal<number | null>(null);
-  sucursalSeleccionada = signal<Sucursal | null>(null);
-
-  // Recurso para obtener sucursales
-  sucursalesResource = rxResource({
-    loader: () =>
-      this.sucursalesService.obtieneSucursales(Number(this.clinicaId())).pipe(
-        tap((resp) => {
-          console.log('Respuesta de sucursales: ', resp.response);
-          if (resp.status) this.sucursales.set(resp.response);
-        })
-      ),
-  });
 
   onSucursalChange(event: Event) {
     const select = event.target as HTMLSelectElement;
