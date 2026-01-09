@@ -29,21 +29,7 @@ export class PersonasService {
   nuevaPersona(persona: Partial<Persona>): Observable<PersonasResponse> {
     return this.http
       .post<PersonasResponse>(
-        `${AppConfig.APIREST_URL}/api/Administracion/registrar`,
-        {
-          id: 'bd751a2f-0f94-4cee-bbc1-08dde64c1ab3',
-          usuarioId: '7eaa93f9-04b4-40bb-87b7-07c4481b3f52',
-          tipoUsuarioId: null,
-          tipoUsuarioNombre: null,
-          nombre: 'Priscila',
-          primerApellido: 'Tafolla',
-          segundoApellido: 'Astorga',
-          genero: 'Femenino',
-          fechaNacimiento: '1986-03-10T08:00:00.629',
-          email: 'priscilatafolla@gmail.com',
-          numeroIdentificacion: null,
-          imagen: null,
-        }
+        `${AppConfig.APIREST_URL}/api/Persona/Nuevo`, persona
       )
       .pipe(catchError(AppConfig.handleErrors));
   }

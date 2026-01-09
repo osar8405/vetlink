@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -72,7 +72,7 @@ export class PersonasUpdateComponent {
       estado: ['', Validators.required],
       cp: [null, Validators.required],
       id: [0],
-    })
+    }),
   });
 
   personaResource = this.isEditMode
@@ -111,7 +111,7 @@ export class PersonasUpdateComponent {
   private llenaFormulario(persona: Persona): void {
     this.myForm.patchValue({
       id: persona.id,
-      usuarioId: "",
+      usuarioId: '',
       tipoUsuarioId: persona.tipoUsuarioId,
       nombre: persona.nombre,
       primerApellido: persona.primerApellido,
@@ -134,8 +134,13 @@ export class PersonasUpdateComponent {
         estado: persona.direccion?.estado,
         cp: persona.direccion?.cp,
         id: persona.direccion?.id,
-      }
+      },
     });
+    this.imagePreview = `${persona.imagen}?n=${Math.random()}`;
+  }
+
+  getDireccionForm(): FormGroup {
+    return this.myForm.get('direccion') as FormGroup;
   }
 
   onFileSelected(file: File | null): void {
@@ -174,7 +179,7 @@ export class PersonasUpdateComponent {
     //     },
     //   });
     // } else {
-      this.registraPersona();
+    this.registraPersona();
     // }
   }
 

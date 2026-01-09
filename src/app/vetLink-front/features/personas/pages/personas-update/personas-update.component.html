@@ -83,60 +83,7 @@
       <shared-select-file [preview]="imagePreview" (imagen)="onFileSelected($event)"></shared-select-file>
     </div>
 
-    <div class="mt-10">
-      <h2 class="text-3xl font-bold mb-6 flex flex-col items-center justify-center">Dirección</h2>
-      <div formGroupName="direccion" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Calle -->
-        <div>
-          <label class="label">Calle</label>
-          <input type="text" formControlName="calle" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.calle')!"></shared-form-error-label>
-        </div>
-
-        <!-- Numero int -->
-        <div>
-          <label class="label">Numero interior</label>
-          <input type="text" formControlName="noInt" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.noInt')!"></shared-form-error-label>
-        </div>
-
-        <!-- Numero ext -->
-        <div>
-          <label class="label">Numero exterior</label>
-          <input type="text" formControlName="noExt" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.noExt')!"></shared-form-error-label>
-        </div>
-
-        <!-- CP -->
-        <div>
-          <label class="label">Código Postal</label>
-          <input type="text" formControlName="cp" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.cp')!"></shared-form-error-label>
-        </div>
-
-        <!-- Colonia -->
-        <div>
-          <label class="label">Colonia</label>
-          <input type="text" formControlName="colonia" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.colonia')!"></shared-form-error-label>
-        </div>
-
-        <!-- Municipio -->
-        <div>
-          <label class="label">Municipio</label>
-          <input type="text" formControlName="municipio" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.municipio')!"></shared-form-error-label>
-        </div>
-
-        <!-- Estado -->
-        <div>
-          <label class="label">Estado</label>
-          <input type="text" formControlName="estado" class="input input-bordered w-full" />
-          <shared-form-error-label [control]="myForm.get('direccion.estado')!"></shared-form-error-label>
-        </div>
-      </div>
-    </div>
-    <shared-direccion></shared-direccion>
+    <shared-direccion [direccionForm]="getDireccionForm()"></shared-direccion>
 
     <!-- Botones -->
     <div class="flex justify-end mt-8 gap-4">

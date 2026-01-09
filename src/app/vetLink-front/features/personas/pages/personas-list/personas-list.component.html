@@ -54,7 +54,7 @@
             <icon-edit [routerLink]="[`/personas/${persona.id}`]" />
           </th>
           <th>
-            <icon-delete [registroId]="persona.id" (confirmar)="eliminaRegistro(persona.id)" />
+            <icon-delete [registroId]="persona.nombre + ' ' + persona.primerApellido" (confirmar)="eliminaRegistro(persona.id)" />
           </th>
         </tr>
         }

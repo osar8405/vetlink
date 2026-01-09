@@ -2,5 +2,5 @@
   <img src="assets/images/general/ImagenEliminar.png" alt="ImagenElininar" class="h-12 w-12">
 </button>
 <shared-confirm-modal #deleteModal titulo="¡Confirmar Eliminación!" mensajeAceptar="Si, Eliminar"
-  mensaje="¿Está seguro de eliminar el registro {{this.registroId()}}? Esta acción no se puede deshacer."
+  mensaje="¿Está seguro de eliminar el registro '{{this.registroId()}}'? Esta acción no se puede deshacer."
   (confirmar)="confirmarEliminacion()" />
