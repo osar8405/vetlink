@@ -1,0 +1,77 @@
+@if (sucursalResource?.error()) {
+<shared-not-found-page mensaje="{{sucursalResource?.error()}}" />
+}
+@if (!sucursalResource?.error()) {
+<div class="min-h-screen flex items-center justify-center">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white">
+    <h2 class="text-3xl font-bold mb-6">Datos de la sucursal</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @if (isEditMode) {
+      <div>
+        <label class="label">ID</label>
+        <input type="text" formControlName="id" class="input input-bordered w-full" readonly />
+      </div>
+
+      <!-- Estatus -->
+      <div>
+        <label class="label w-full">Estatus</label>
+        <input type="checkbox" formControlName="activo" class="toggle toggle-primary " />
+      </div>
+      }
+
+      <!-- nombreSucursal -->
+      <div>
+        <label class="label">Sucursal</label>
+        <input type="text" formControlName="nombreSucursal" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('nombreSucursal')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('nombreSucursal')!"></shared-form-error-label>
+      </div>
+
+      <!-- telefono -->
+      <div>
+        <label class="label">Teléfono</label>
+        <input type="text" formControlName="telefono" class="input input-bordered w-full"
+          [class.border-red-500]="myForm.get('telefono')?.errors ?? false" />
+        <shared-form-error-label [control]="myForm.get('telefono')!"></shared-form-error-label>
+      </div>
+
+      <!-- email -->
+      <div>
+        <label class="label">Email</label>
+        <input type="text" formControlName="email" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('email')!"></shared-form-error-label>
+      </div>
+
+      <!-- Horario -->
+      <div>
+        <label class="label">Horario</label>
+        <input type="text" formControlName="horario" class="input input-bordered w-full" />
+        <shared-form-error-label [control]="myForm.get('horario')!"></shared-form-error-label>
+      </div>
+
+      <!-- logo -->
+      <shared-select-file [preview]="imagePreview" (imagen)="onFileSelected($event)"></shared-select-file>
+
+      <div>
+        <label class="label">Clínica</label>
+        <select formControlName="clinicaId" class="select select-bordered w-full">
+          <option value="" selected>Selecciona una clinica</option>
+          @for (clinica of clinicasResource.value(); track clinica.id) {
+          <option [value]="clinica.id">{{clinica.nombreClinica}}</option>
+          }
+        </select>
+        <shared-form-error-label [control]="myForm.get('clinicaId')!"></shared-form-error-label>
+      </div>
+    </div>
+
+    <shared-direccion [direccionForm]="getDireccionForm()"></shared-direccion>
+
+    <!-- Botones -->
+    <div class="flex justify-end mt-8 gap-4">
+      <button type="button" class="btn btn-secundary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+}

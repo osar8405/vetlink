@@ -33,12 +33,3 @@ export interface SucursalesResponse {
   status: boolean;
   message: any[];
 }
-
-export interface Response {
-  id:             number;
-  nombreSucursal: string;
-  telefono:       string;
-  email:          string;
-  activo:         boolean;
-  nombreClinica:  string;
-}

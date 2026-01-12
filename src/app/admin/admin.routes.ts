@@ -16,6 +16,10 @@ export const AdminRoutes: Routes = [
         loadChildren: () => import('./features/clinicas/clinicas.routes'),
       },
       {
+        path: 'sucursales',
+        loadChildren: () => import('./features/sucursales/sucursales.routes'),
+      },
+      {
         path: 'catalogos',
         loadChildren: () => import('./features/catalogos/catalogos.routes'),
       },

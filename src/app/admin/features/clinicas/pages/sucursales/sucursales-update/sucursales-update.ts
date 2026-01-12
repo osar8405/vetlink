@@ -14,8 +14,8 @@ import { FormUtils } from '@core/utils/form-utils';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
-import { Sucursal } from '../../../interfaces/sucursales.interface';
-import { SucursalesService } from '../../../services/sucursales.service';
+import { Sucursal } from '../../../../sucursales/interfaces/sucursales.interface';
+import { SucursalesService } from '../../../../sucursales/services/sucursales.service';
 
 @Component({
   selector: 'app-sucursales-update',

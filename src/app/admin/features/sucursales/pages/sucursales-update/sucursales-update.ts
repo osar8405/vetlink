@@ -11,27 +11,28 @@ import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CdnService } from '@shared/services/cdn.service';
 import { FormUtils } from '@core/utils/form-utils';
-import type { Clinica } from '../../interfaces/clinicas.interface';
-import { ClinicasService } from '../../services/clinicas.service';
 import { NotFoundPageComponent } from '@shared/components/not-found-page/not-found-page.component';
 import { NotificacionService } from '@shared/services/notificacion.service';
 import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 import { Sucursal } from '../../../sucursales/interfaces/sucursales.interface';
 import { SucursalesService } from '../../../sucursales/services/sucursales.service';
 import { SelectFileComponent } from '@shared/components/upload-file/select-file.component';
+import { Direccion } from "@shared/direccion/direccion";
+import { ClinicasService } from '../../../clinicas/services/clinicas.service';
 @Component({
-  selector: 'app-clinicas-update',
+  selector: 'app-sucursales-update',
   imports: [
     NotFoundPageComponent,
     ReactiveFormsModule,
     FormErrorLabelComponent,
     SelectFileComponent,
+    Direccion,
   ],
-  templateUrl: './clinicas-update.component.html',
+  templateUrl: './sucursales-update.html',
 })
-export class ClinicasUpdateComponent {
-  clinicasService = inject(ClinicasService);
+export class SucursalesUpdate {
   sucursalesService = inject(SucursalesService);
+  clinicasService = inject(ClinicasService);
   notificacion = inject(NotificacionService);
   private fb = inject(FormBuilder);
   private activatedRoute = inject(ActivatedRoute);
@@ -45,82 +46,104 @@ export class ClinicasUpdateComponent {
   );
   isEditMode = this.clinicaId() === 'new' ? false : true;
 
-  // Sucursales
-  sucursales = signal<Sucursal[]>([]);
-  sucursalSeleccionadaId = signal<number | null>(null);
-  sucursalSeleccionada = signal<Sucursal | null>(null);
-
   myForm: FormGroup = this.fb.group({
     id: [0],
-    suscripcion: [null],
-    sucursales: [[]],
-    nombreClinica: ['', Validators.required],
-    sitioWeb: ['', Validators.required],
-    logo: [''],
+    clinicaId: ['', Validators.required],
+    nombreSucursal: ['', Validators.required],
+    telefono: [''],
+    email: [
+      '',
+      [Validators.required, Validators.pattern(FormUtils.emailPattern)],
+    ],
+    fotoSucursal: [''],
     url: [''],
+    horario: [0],
     activo: [true],
-    suscripcionId: [0],
+    direccion: this.fb.group({
+      calle: ['', Validators.required],
+      noInt: [''],
+      noExt: ['', Validators.required],
+      colonia: ['', Validators.required],
+      municipio: ['', Validators.required],
+      estado: ['', Validators.required],
+      cp: [null, Validators.required],
+      id: [0],
+    }),
   });
 
-  clinicaResource = this.isEditMode
+  sucursalResource = this.isEditMode
     ? rxResource({
         request: () => ({
           clinicaId: this.clinicaId(),
         }),
         loader: ({ request }) => {
-          return this.clinicasService.obtieneClinica(request.clinicaId).pipe(
-            tap((resp) => {
-              if (!resp.status) {
-                throw new Error(resp.message?.[0] || 'Error desconocido');
-              }
-              this.sucursales.set(resp.response.sucursales);
-            })
-          );
+          return this.sucursalesService
+            .obtieneSucursalPorId(request.clinicaId)
+            .pipe(
+              tap((resp) => {
+                if (!resp.status) {
+                  throw new Error(resp.message?.[0] || 'Error desconocido');
+                }
+              })
+            );
         },
       })
     : null;
 
+  clinicasResource = rxResource({
+    loader: ({}) => {
+      return this.clinicasService
+        .obtieneClinicas()
+        .pipe(map((resp: any) => resp.response));
+    },
+  });
+
   constructor() {
-    if (this.isEditMode && this.clinicaResource) {
+    if (this.isEditMode && this.sucursalResource) {
       effect(() => {
-        const data = this.clinicaResource!.value();
+        const data = this.sucursalResource!.value();
         if (data?.status) {
           this.llenaFormulario(data.response);
         }
       });
     }
-
-    effect(() => {
-      const id = this.sucursalSeleccionadaId();
-      if (id) {
-        const sucursalEncontrada = this.sucursales().find((s) => s.id === id);
-        this.sucursalSeleccionada.set(sucursalEncontrada || null);
-      }
-    });
   }
 
-  private llenaFormulario(clinica: Clinica): void {
+  private llenaFormulario(sucursal: Sucursal): void {
     this.myForm.patchValue({
-      id: clinica.id,
-      nombreClinica: clinica.nombreClinica,
-      suscripcion: clinica.suscripcion,
-      sucursales: clinica.sucursales,
-      logo: clinica.logo,
-      url: clinica.logo,
-      sitioWeb: clinica.sitioWeb,
-      activo: clinica.activo,
-      suscripcionId: clinica.suscripcionId,
+      id: sucursal.id,
+      clinicaId: sucursal.clinicaId,
+      nombreSucursal: sucursal.nombreSucursal,
+      telefono: sucursal.telefono,
+      email: sucursal.email,
+      fotoSucursal: sucursal.fotoSucursal,
+      url: sucursal.fotoSucursal,
+      horario: sucursal.horario,
+      activo: sucursal.activo,
+      direccion: {
+        calle: sucursal.direccion?.calle,
+        noInt: sucursal.direccion?.noInt,
+        noExt: sucursal.direccion?.noExt,
+        colonia: sucursal.direccion?.colonia,
+        municipio: sucursal.direccion?.municipio,
+        estado: sucursal.direccion?.estado,
+        cp: sucursal.direccion?.cp,
+      },
     });
-    this.imagePreview = `${clinica.logo}?n=${Math.random()}`;
+    this.imagePreview = `${sucursal.fotoSucursal}?n=${Math.random()}`;
+  }
+
+  getDireccionForm(): FormGroup {
+    return this.myForm.get('direccion') as FormGroup;
   }
 
   onFileSelected(file: File | null): void {
     this.myForm.patchValue({
-      logo: file,
+      fotoSucursal: file,
       url: '',
     });
-    this.myForm.get('logo')?.markAsTouched();
-    this.myForm.get('logo')?.updateValueAndValidity();
+    this.myForm.get('fotoSucursal')?.markAsTouched();
+    this.myForm.get('fotoSucursal')?.updateValueAndValidity();
   }
 
   onSubmit() {
@@ -146,25 +169,25 @@ export class ClinicasUpdateComponent {
     //       );
     //     },
     //     complete: () => {
-    //       this.registraClinica();
+    //       this.registraSucursal();
     //     },
     //   });
     // } else {
-    this.registraClinica();
+    this.registraSucursal();
     // }
   }
 
-  registraClinica() {
+  registraSucursal() {
     const request$ = this.isEditMode
-      ? this.clinicasService.actualizaClinica(this.myForm.value)
-      : this.clinicasService.nuevaClinica(this.myForm.value);
+      ? this.sucursalesService.actualizaSucursal(this.myForm.value)
+      : this.sucursalesService.nuevaSucursal(this.myForm.value);
     request$.subscribe({
       next: (data) => {
         if (data.status) {
           this.notificacion.show(
             this.isEditMode
-              ? 'Clinica actualizada correctamente.'
-              : 'Clinica guardada correctamente.',
+              ? 'Sucursal actualizada correctamente.'
+              : 'Sucursal guardada correctamente.',
             'success'
           );
           this.location.back();
@@ -175,8 +198,8 @@ export class ClinicasUpdateComponent {
       error: (e) => {
         this.notificacion.show(
           this.isEditMode
-            ? 'Ocurrió un error al actualizar la clinica, favor de intentarlo nuevamente'
-            : 'Ocurrió un error a guardar la clinica, favor de intentarlo nuevamente',
+            ? 'Ocurrió un error al actualizar la sucursal, favor de intentarlo nuevamente'
+            : 'Ocurrió un error a guardar la sucursal, favor de intentarlo nuevamente',
           'error'
         );
       },
@@ -185,10 +208,5 @@ export class ClinicasUpdateComponent {
 
   goBack() {
     this.location.back();
-  }
-
-  onSucursalChange(event: Event) {
-    const select = event.target as HTMLSelectElement;
-    this.sucursalSeleccionadaId.set(Number(select.value));
   }
 }
